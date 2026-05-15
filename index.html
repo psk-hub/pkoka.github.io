@@ -3,1126 +3,1281 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Phani Sundar Koka — Controls & Automation Engineer</title>
+<title>Phani Sundar Koka — Controls &amp; Automation Engineer</title>
+<meta name="description" content="Controls and Automation Engineer specializing in PLC/SCADA, MHE systems, and multi-platform motion control across Rockwell, Siemens, and Beckhoff ecosystems.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,800&display=swap" rel="stylesheet">
 <style>
-/* ══════════════════════════════════════════════
-   ROOT & RESET
-══════════════════════════════════════════════ */
-:root {
-  --bg:          #050212;
-  --bg2:         #0d0624;
-  --indigo:      #6366f1;
-  --indigo-d:    #4338ca;
-  --pink:        #ec4899;
-  --cyan:        #06b6d4;
-  --amber:       #f59e0b;
-  --text:        #e2e8f0;
-  --muted:       #94a3b8;
-  --border:      rgba(255,255,255,0.08);
-  --card:        rgba(255,255,255,0.03);
-  --card-h:      rgba(255,255,255,0.06);
-}
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
-  font-family:'DM Sans',sans-serif;
-  background:var(--bg);
-  color:var(--text);
-  overflow-x:hidden;
-  cursor:none;
-}
+  :root {
+    --bg: #0a0c10;
+    --panel: #14171d;
+    --panel-2: #1c2127;
+    --line: #2a2f38;
+    --ink: #e8eaf0;
+    --ink-dim: #8a8e98;
+    --ink-low: #555964;
 
-/* ── Scrollbar ── */
-::-webkit-scrollbar{width:5px}
-::-webkit-scrollbar-track{background:var(--bg)}
-::-webkit-scrollbar-thumb{
-  background:linear-gradient(180deg,var(--cyan),var(--indigo));
-  border-radius:3px;
-}
+    /* Family color palette - each accent matches a project page */
+    --primary: #ffb300;        /* portfolio accent */
+    --primary-glow: rgba(255, 179, 0, 0.18);
+    --amber: #f5a623;          /* TPow_Unl */
+    --beckhoff: #ce0e2d;       /* Beckhoff */
+    --cip: #00b3a4;            /* Point I/O */
+    --delta: #9b6cff;          /* Delta-Bot */
+    --packml: #ffaa00;         /* Simple Motion */
+    --safety: #ffcc00;         /* Gantry */
+    --siemens: #009999;
+    --rockwell: #cc0000;
+    --green: #34c759;
 
-/* ── Noise overlay ── */
-body::after{
-  content:'';
-  position:fixed;
-  inset:0;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
-  opacity:0.025;
-  pointer-events:none;
-  z-index:9998;
-}
-
-/* ══════════════════════════════════════════════
-   LOADING SCREEN
-══════════════════════════════════════════════ */
-#loader{
-  position:fixed;inset:0;
-  background:var(--bg);
-  z-index:99999;
-  display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  transition:opacity .8s ease, visibility .8s ease;
-}
-#loader.fade-out{opacity:0;visibility:hidden;pointer-events:none}
-
-.loader-initials{
-  font-family:'Syne',sans-serif;
-  font-size:5.5rem;font-weight:800;
-  background:linear-gradient(135deg,var(--cyan) 0%,var(--indigo) 50%,var(--pink) 100%);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-  letter-spacing:.15em;
-  animation:loaderPulse 1.4s ease-in-out infinite;
-}
-@keyframes loaderPulse{0%,100%{transform:scale(1);filter:brightness(1)}50%{transform:scale(1.06);filter:brightness(1.3)}}
-
-.loader-bar-wrap{
-  width:220px;height:3px;
-  background:rgba(255,255,255,0.08);
-  border-radius:2px;margin-top:2.2rem;overflow:hidden;
-}
-.loader-bar{
-  height:100%;width:0%;border-radius:2px;
-  background:linear-gradient(90deg,var(--cyan),var(--indigo),var(--pink),var(--amber));
-  background-size:300%;
-  animation:loaderFill 2s ease forwards, loaderShimmer 1s linear infinite;
-}
-@keyframes loaderFill{0%{width:0%}100%{width:100%}}
-@keyframes loaderShimmer{0%{background-position:0%}100%{background-position:300%}}
-.loader-text{
-  margin-top:1.1rem;font-size:.72rem;letter-spacing:.25em;
-  text-transform:uppercase;color:var(--muted);
-}
-
-/* ══════════════════════════════════════════════
-   CUSTOM CURSOR
-══════════════════════════════════════════════ */
-#cursor-dot{
-  position:fixed;width:7px;height:7px;
-  background:var(--cyan);border-radius:50%;
-  pointer-events:none;z-index:99997;
-  transform:translate(-50%,-50%);
-  box-shadow:0 0 8px var(--cyan),0 0 16px var(--cyan);
-  transition:background .3s;
-}
-#cursor-ring{
-  position:fixed;width:32px;height:32px;
-  border:1.5px solid rgba(6,182,212,.55);
-  border-radius:50%;pointer-events:none;z-index:99996;
-  transform:translate(-50%,-50%);
-  transition:width .35s ease,height .35s ease,border-color .35s ease;
-}
-#cursor-ring.big{width:50px;height:50px;border-color:rgba(236,72,153,.5)}
-
-/* ══════════════════════════════════════════════
-   PARTICLE CANVAS
-══════════════════════════════════════════════ */
-#particle-canvas{
-  position:fixed;inset:0;
-  z-index:0;pointer-events:none;
-}
-
-/* ══════════════════════════════════════════════
-   NAVBAR
-══════════════════════════════════════════════ */
-#navbar{
-  position:fixed;top:0;left:0;right:0;z-index:1000;
-  padding:1.1rem 4rem;
-  display:flex;align-items:center;justify-content:space-between;
-  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
-  background:rgba(5,2,18,.72);
-  border-bottom:1px solid var(--border);
-  transform:translateY(-110%);
-  animation:navSlideDown .8s ease 2.5s forwards;
-}
-@keyframes navSlideDown{to{transform:translateY(0)}}
-
-.nav-logo{
-  font-family:'Syne',sans-serif;font-weight:800;font-size:1.2rem;
-  background:linear-gradient(135deg,var(--cyan),var(--indigo));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-  text-decoration:none;letter-spacing:-.01em;
-}
-.nav-links{display:flex;gap:2rem;list-style:none}
-.nav-links a{
-  color:var(--muted);text-decoration:none;
-  font-size:.88rem;font-weight:500;
-  position:relative;transition:color .3s;
-}
-.nav-links a::after{
-  content:'';position:absolute;bottom:-3px;left:0;
-  width:0;height:1.5px;
-  background:linear-gradient(90deg,var(--cyan),var(--indigo));
-  transition:width .35s ease;
-}
-.nav-links a:hover{color:var(--text)}
-.nav-links a:hover::after{width:100%}
-.nav-ham{display:none;background:none;border:none;color:var(--text);font-size:1.4rem;cursor:none}
-
-/* ══════════════════════════════════════════════
-   SHARED SECTION STYLES
-══════════════════════════════════════════════ */
-section{position:relative;z-index:1;padding:7rem 4rem}
-.container{max-width:1180px;margin:0 auto}
-.sec-label{
-  font-size:.72rem;font-weight:700;letter-spacing:.22em;
-  text-transform:uppercase;color:var(--cyan);margin-bottom:.7rem;
-}
-.sec-title{
-  font-family:'Syne',sans-serif;
-  font-size:clamp(2rem,3.8vw,2.9rem);font-weight:800;line-height:1.15;
-  margin-bottom:.9rem;
-}
-.sec-sub{
-  color:var(--muted);font-size:1rem;line-height:1.75;
-  max-width:580px;margin-bottom:3.5rem;
-}
-
-/* ══════════════════════════════════════════════
-   HERO
-══════════════════════════════════════════════ */
-#hero{min-height:100vh;display:flex;align-items:center;padding-top:6rem}
-.hero-grid{
-  display:grid;grid-template-columns:1fr 1fr;
-  gap:4rem;align-items:center;
-}
-
-/* availability tag */
-.avail-tag{
-  display:inline-flex;align-items:center;gap:.5rem;
-  padding:.35rem 1rem;border-radius:100px;
-  border:1px solid rgba(6,182,212,.3);
-  background:rgba(6,182,212,.07);
-  font-size:.77rem;font-weight:600;color:var(--cyan);
-  margin-bottom:1.6rem;
-}
-.avail-dot{
-  width:7px;height:7px;border-radius:50%;
-  background:var(--cyan);
-  animation:blink 1.6s ease-in-out infinite;
-}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
-
-/* hero name */
-.hero-name{
-  font-family:'Syne',sans-serif;
-  font-size:clamp(2.8rem,5.5vw,4.8rem);font-weight:800;line-height:1.05;
-  margin-bottom:1.1rem;
-}
-.shimmer-name{
-  background:linear-gradient(90deg,
-    var(--text) 0%,var(--cyan) 20%,var(--indigo) 40%,
-    var(--pink) 60%,var(--amber) 80%,var(--text) 100%);
-  background-size:300%;
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-  animation:nameShimmer 5s linear infinite;
-}
-@keyframes nameShimmer{0%{background-position:0%}100%{background-position:300%}}
-
-.hero-sub{
-  font-size:1.05rem;color:var(--muted);line-height:1.75;
-  max-width:480px;margin-bottom:2.2rem;
-}
-.hero-ctas{display:flex;gap:.9rem;flex-wrap:wrap}
-
-.btn-primary{
-  padding:.85rem 2rem;border-radius:9px;
-  background:linear-gradient(135deg,var(--indigo),var(--pink));
-  color:#fff;font-weight:600;font-size:.9rem;
-  text-decoration:none;border:none;cursor:none;
-  box-shadow:0 0 24px rgba(99,102,241,.35);
-  transition:transform .25s ease,box-shadow .25s ease;
-  display:inline-block;
-}
-.btn-primary:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(99,102,241,.45)}
-
-.btn-outline{
-  padding:.85rem 2rem;border-radius:9px;
-  border:1px solid var(--border);background:transparent;
-  color:var(--text);font-weight:600;font-size:.9rem;
-  text-decoration:none;cursor:none;
-  transition:all .3s ease;display:inline-block;
-}
-.btn-outline:hover{border-color:var(--cyan);color:var(--cyan);background:rgba(6,182,212,.07)}
-
-/* hero right card */
-.hero-right{display:flex;justify-content:center;align-items:center}
-.hero-card-wrap{position:relative;width:320px;height:400px}
-
-.hero-orb{
-  position:absolute;width:280px;height:280px;border-radius:50%;
-  background:radial-gradient(circle,rgba(99,102,241,.35) 0%,transparent 70%);
-  top:50%;left:50%;transform:translate(-50%,-50%);
-  filter:blur(35px);
-  animation:orbPulse 3.5s ease-in-out infinite;
-}
-@keyframes orbPulse{0%,100%{transform:translate(-50%,-50%) scale(1);opacity:.5}50%{transform:translate(-50%,-50%) scale(1.25);opacity:.85}}
-
-.spin-ring{
-  position:absolute;border-radius:50%;border:1.5px dashed;
-  top:50%;left:50%;
-}
-.spin-ring-1{
-  width:290px;height:290px;
-  border-color:rgba(6,182,212,.35);
-  transform:translate(-50%,-50%);
-  animation:spin1 14s linear infinite;
-}
-.spin-ring-2{
-  width:220px;height:220px;
-  border-color:rgba(236,72,153,.28);
-  transform:translate(-50%,-50%);
-  animation:spin1 9s linear infinite reverse;
-}
-@keyframes spin1{from{transform:translate(-50%,-50%) rotate(0deg)}to{transform:translate(-50%,-50%) rotate(360deg)}}
-
-.hero-card{
-  position:absolute;top:50%;left:50%;
-  width:210px;
-  background:rgba(13,6,36,.85);
-  backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);
-  border:1px solid rgba(255,255,255,.13);
-  border-radius:22px;padding:2rem 1.5rem;text-align:center;
-  box-shadow:0 28px 55px rgba(0,0,0,.55),inset 0 0 22px rgba(255,255,255,.02);
-  animation:floatRotate 7s ease-in-out infinite;
-}
-@keyframes floatRotate{
-  0%,100%{transform:translate(-50%,-50%) translateY(0) perspective(700px) rotateY(-6deg) rotateX(4deg)}
-  25%{transform:translate(-50%,-50%) translateY(-12px) perspective(700px) rotateY(6deg) rotateX(-3deg)}
-  50%{transform:translate(-50%,-50%) translateY(-18px) perspective(700px) rotateY(5deg) rotateX(5deg)}
-  75%{transform:translate(-50%,-50%) translateY(-8px) perspective(700px) rotateY(-5deg) rotateX(3deg)}
-}
-
-.card-avatar{
-  width:68px;height:68px;border-radius:50%;
-  background:linear-gradient(135deg,var(--indigo),var(--pink));
-  display:flex;align-items:center;justify-content:center;
-  margin:0 auto 1rem;
-  font-family:'Syne',sans-serif;font-size:1.35rem;font-weight:800;color:#fff;
-  box-shadow:0 0 22px rgba(99,102,241,.55);
-}
-.card-name{
-  font-family:'Syne',sans-serif;font-size:.95rem;font-weight:700;
-  color:var(--text);margin-bottom:.2rem;
-}
-.card-role{font-size:.72rem;color:var(--muted);margin-bottom:1.3rem}
-.card-stats{display:flex;gap:.4rem}
-.c-stat{
-  flex:1;background:rgba(255,255,255,.05);
-  border:1px solid var(--border);border-radius:9px;
-  padding:.55rem .35rem;
-}
-.c-stat-n{
-  font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:800;
-  color:var(--cyan);display:block;
-}
-.c-stat-l{font-size:.58rem;color:var(--muted);display:block;line-height:1.35}
-
-/* ══════════════════════════════════════════════
-   MARQUEE
-══════════════════════════════════════════════ */
-.marquee-wrap{
-  padding:1.6rem 0;
-  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
-  background:rgba(255,255,255,.015);overflow:hidden;
-  position:relative;z-index:1;
-}
-.marquee-track{
-  display:flex;gap:3rem;width:max-content;
-  animation:marquee 28s linear infinite;
-}
-.marquee-wrap:hover .marquee-track{animation-play-state:paused}
-.marquee-item{
-  font-family:'Syne',sans-serif;font-size:.8rem;font-weight:700;
-  color:var(--muted);text-transform:uppercase;letter-spacing:.06em;
-  white-space:nowrap;display:flex;align-items:center;gap:.55rem;
-}
-.marquee-item span{color:var(--cyan);font-size:.5rem}
-@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-
-/* ══════════════════════════════════════════════
-   SKILLS
-══════════════════════════════════════════════ */
-#skills{background:linear-gradient(180deg,transparent,rgba(99,102,241,.03),transparent)}
-.skills-grid{display:grid;grid-template-columns:1fr 1fr;gap:4.5rem}
-
-.skill-item{margin-bottom:1.7rem}
-.skill-hd{display:flex;justify-content:space-between;margin-bottom:.55rem}
-.skill-name{font-weight:500;font-size:.88rem}
-.skill-pct{font-size:.78rem;color:var(--cyan);font-weight:700}
-.skill-track{height:5px;background:rgba(255,255,255,.07);border-radius:3px;overflow:hidden}
-.skill-fill{
-  height:100%;border-radius:3px;width:0;
-  transition:width 1.3s cubic-bezier(.4,0,.2,1);
-  position:relative;overflow:hidden;
-}
-.skill-fill::after{
-  content:'';position:absolute;top:0;left:-100%;
-  width:100%;height:100%;
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,.45),transparent);
-  animation:skillShimmer 2s ease 1.4s forwards;
-}
-@keyframes skillShimmer{0%{left:-100%}100%{left:120%}}
-.sf-cyan{background:linear-gradient(90deg,var(--cyan),#0891b2)}
-.sf-pink{background:linear-gradient(90deg,var(--pink),#be185d)}
-.sf-indigo{background:linear-gradient(90deg,var(--indigo),var(--indigo-d))}
-.sf-amber{background:linear-gradient(90deg,var(--amber),#d97706)}
-.sf-teal{background:linear-gradient(90deg,#14b8a6,#0f766e)}
-
-.cloud-title{
-  font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;
-  margin-bottom:1.2rem;
-}
-.tech-cloud{display:flex;flex-wrap:wrap;gap:.55rem}
-.t-chip{
-  padding:.38rem .88rem;border-radius:100px;
-  font-size:.75rem;font-weight:500;
-  border:1px solid var(--border);background:var(--card);
-  color:var(--muted);transition:all .3s ease;cursor:default;
-}
-.t-chip:hover{
-  transform:translateY(-5px);
-  border-color:var(--cyan);color:var(--cyan);
-  background:rgba(6,182,212,.08);
-  box-shadow:0 8px 20px rgba(6,182,212,.15);
-}
-
-/* ══════════════════════════════════════════════
-   EXPERIENCE
-══════════════════════════════════════════════ */
-#experience{}
-.timeline{position:relative;padding-left:1.8rem}
-.timeline::before{
-  content:'';position:absolute;left:0;top:0;bottom:0;
-  width:2px;
-  background:linear-gradient(180deg,var(--cyan),var(--indigo),var(--pink));
-  border-radius:1px;
-}
-
-.tl-item{
-  position:relative;margin-bottom:2.8rem;padding-left:2rem;
-}
-.tl-dot{
-  position:absolute;left:-2.4rem;top:.6rem;
-  width:12px;height:12px;border-radius:50%;
-  background:var(--cyan);border:2.5px solid var(--bg);
-  box-shadow:0 0 12px var(--cyan);
-}
-.tl-card{
-  background:var(--card);border:1px solid var(--border);
-  border-radius:16px;padding:1.8rem;
-  backdrop-filter:blur(10px);
-  transition:all .35s ease;
-}
-.tl-card:hover{
-  background:var(--card-h);
-  border-color:rgba(99,102,241,.3);
-  box-shadow:0 12px 32px rgba(0,0,0,.35),0 0 0 1px rgba(99,102,241,.12);
-  transform:translateX(6px);
-}
-.tl-top{
-  display:flex;justify-content:space-between;align-items:flex-start;
-  flex-wrap:wrap;gap:.5rem;margin-bottom:.25rem;
-}
-.tl-role{
-  font-family:'Syne',sans-serif;font-size:1.08rem;font-weight:700;
-}
-.tl-date{
-  font-size:.77rem;color:var(--cyan);font-weight:600;
-  background:rgba(6,182,212,.08);padding:.22rem .7rem;
-  border-radius:100px;border:1px solid rgba(6,182,212,.2);
-}
-.tl-co{font-size:.87rem;color:var(--muted);margin-bottom:1rem}
-.tl-co em{color:var(--indigo);font-style:normal;font-weight:600}
-.tl-ul{list-style:none;display:flex;flex-direction:column;gap:.45rem}
-.tl-ul li{
-  font-size:.86rem;color:var(--muted);line-height:1.65;
-  padding-left:1.15rem;position:relative;
-}
-.tl-ul li::before{
-  content:'▸';position:absolute;left:0;top:.18rem;
-  color:var(--cyan);font-size:.68rem;
-}
-.tl-badges{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1rem}
-.badge{
-  padding:.22rem .65rem;border-radius:5px;
-  font-size:.7rem;font-weight:700;letter-spacing:.02em;
-}
-.b-cyan{background:rgba(6,182,212,.12);color:var(--cyan)}
-.b-pink{background:rgba(236,72,153,.12);color:var(--pink)}
-.b-indigo{background:rgba(99,102,241,.12);color:var(--indigo)}
-.b-amber{background:rgba(245,158,11,.12);color:var(--amber)}
-.b-teal{background:rgba(20,184,166,.12);color:#14b8a6}
-
-/* ══════════════════════════════════════════════
-   PROJECTS
-══════════════════════════════════════════════ */
-#projects{background:linear-gradient(180deg,transparent,rgba(236,72,153,.03),transparent)}
-.projects-grid{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;
-}
-
-.proj-card{
-  background:var(--card);border:1px solid var(--border);
-  border-radius:17px;padding:1.8rem;
-  position:relative;overflow:hidden;
-  transition:all .4s ease;cursor:default;
-}
-.proj-card::before{
-  content:'';position:absolute;top:0;left:-110%;
-  width:100%;height:2px;
-  background:linear-gradient(90deg,transparent,var(--cyan),var(--indigo),var(--pink),transparent);
-  transition:left .55s ease;
-}
-.proj-card:hover{
-  transform:translateY(-9px);
-  background:var(--card-h);
-  border-color:rgba(99,102,241,.3);
-  box-shadow:0 22px 45px rgba(0,0,0,.45);
-}
-.proj-card:hover::before{left:110%}
-
-.proj-emoji{font-size:2.1rem;margin-bottom:1rem;display:block}
-.proj-name{
-  font-family:'Syne',sans-serif;font-size:.98rem;font-weight:700;
-  color:var(--text);margin-bottom:.3rem;line-height:1.3;
-}
-.proj-date{
-  font-size:.73rem;color:var(--amber);font-weight:600;
-  margin-bottom:.75rem;
-}
-.proj-desc{
-  font-size:.82rem;color:var(--muted);line-height:1.68;
-  margin-bottom:1.2rem;
-}
-.proj-tags{display:flex;flex-wrap:wrap;gap:.4rem}
-.p-tag{
-  padding:.2rem .6rem;border-radius:4px;font-size:.69rem;font-weight:600;
-  background:rgba(99,102,241,.1);color:var(--indigo);
-  border:1px solid rgba(99,102,241,.2);
-}
-
-/* ══════════════════════════════════════════════
-   EDUCATION
-══════════════════════════════════════════════ */
-#education{}
-.edu-grid{
-  display:grid;grid-template-columns:repeat(2,1fr);gap:1.4rem;
-  margin-bottom:2.5rem;
-}
-.edu-card{
-  background:var(--card);border:1px solid var(--border);
-  border-radius:16px;padding:1.8rem;
-  transition:all .35s ease;
-}
-.edu-card:hover{
-  border-color:rgba(99,102,241,.3);background:var(--card-h);
-  transform:translateY(-5px);box-shadow:0 14px 32px rgba(0,0,0,.3);
-}
-.edu-badge{
-  display:inline-block;width:46px;height:46px;border-radius:12px;
-  background:linear-gradient(135deg,rgba(99,102,241,.2),rgba(236,72,153,.2));
-  display:flex;align-items:center;justify-content:center;
-  font-size:1.4rem;margin-bottom:1rem;
-}
-.edu-deg{
-  font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;
-  margin-bottom:.25rem;line-height:1.3;
-}
-.edu-school{
-  font-size:.87rem;color:var(--indigo);font-weight:600;
-  margin-bottom:.2rem;
-}
-.edu-meta{font-size:.79rem;color:var(--muted);margin-bottom:.9rem}
-.edu-gpa{
-  display:inline-block;padding:.22rem .75rem;border-radius:100px;
-  background:rgba(245,158,11,.1);color:var(--amber);
-  font-size:.78rem;font-weight:700;
-  border:1px solid rgba(245,158,11,.22);
-}
-
-.cert-card{
-  background:var(--card);border:1px solid var(--border);
-  border-radius:14px;padding:1.4rem 1.6rem;
-  display:flex;align-items:center;gap:1.4rem;
-  margin-bottom:1.2rem;transition:all .3s ease;
-}
-.cert-card:hover{
-  border-color:rgba(6,182,212,.3);transform:translateX(8px);
-  box-shadow:4px 0 20px rgba(6,182,212,.1);
-}
-.cert-icon{
-  width:46px;height:46px;border-radius:10px;flex-shrink:0;
-  background:linear-gradient(135deg,rgba(6,182,212,.2),rgba(99,102,241,.2));
-  display:flex;align-items:center;justify-content:center;font-size:1.4rem;
-}
-.cert-name{font-family:'Syne',sans-serif;font-size:.93rem;font-weight:700}
-.cert-org{font-size:.81rem;color:var(--muted);margin-top:.15rem}
-.cert-date{font-size:.77rem;color:var(--cyan);font-weight:600;margin-left:auto;white-space:nowrap}
-
-.lang-head{
-  font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;
-  margin-bottom:1.1rem;margin-top:1.5rem;
-}
-.lang-badges{display:flex;gap:.75rem;flex-wrap:wrap}
-.lang-badge{
-  display:flex;align-items:center;gap:.55rem;
-  padding:.6rem 1.2rem;border-radius:100px;
-  border:1px solid var(--border);background:var(--card);
-  font-size:.85rem;transition:all .3s ease;
-}
-.lang-badge:hover{border-color:var(--indigo);background:rgba(99,102,241,.08)}
-.lang-flag{font-size:1.1rem}
-.lang-name{font-weight:600;color:var(--text)}
-.lang-lvl{color:var(--muted);font-size:.78rem}
-
-/* ══════════════════════════════════════════════
-   CONTACT
-══════════════════════════════════════════════ */
-#contact{}
-.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
-
-.c-items{display:flex;flex-direction:column;gap:1rem}
-.c-item{
-  display:flex;align-items:center;gap:1.1rem;
-  padding:1rem 1.4rem;background:var(--card);
-  border:1px solid var(--border);border-radius:12px;
-  transition:all .3s ease;cursor:default;text-decoration:none;color:inherit;
-}
-.c-item:hover{
-  transform:translateX(9px);
-  border-color:rgba(6,182,212,.32);background:var(--card-h);
-  box-shadow:5px 0 22px rgba(6,182,212,.1);
-}
-.c-ico{
-  width:44px;height:44px;border-radius:10px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:1.2rem;flex-shrink:0;
-}
-.ci-cyan{background:rgba(6,182,212,.15)}
-.ci-pink{background:rgba(236,72,153,.15)}
-.ci-indigo{background:rgba(99,102,241,.15)}
-.ci-amber{background:rgba(245,158,11,.15)}
-.c-lbl{font-size:.73rem;color:var(--muted)}
-.c-val{font-size:.9rem;font-weight:500;color:var(--text)}
-
-.contact-right{display:flex;justify-content:center;align-items:center}
-.contact-avatar-wrap{
-  position:relative;width:210px;height:210px;
-  display:flex;align-items:center;justify-content:center;
-}
-.ripple-ring{
-  position:absolute;border-radius:50%;
-  border:1px solid rgba(6,182,212,.38);
-  animation:rippleOut 3s ease-out infinite;
-}
-.r1{width:90px;height:90px;animation-delay:0s}
-.r2{width:145px;height:145px;animation-delay:1s}
-.r3{width:205px;height:205px;animation-delay:2s}
-@keyframes rippleOut{
-  0%{transform:scale(.8);opacity:.85}
-  100%{transform:scale(1.3);opacity:0}
-}
-.contact-avatar{
-  width:90px;height:90px;border-radius:50%;
-  background:linear-gradient(135deg,var(--indigo),var(--pink));
-  display:flex;align-items:center;justify-content:center;
-  font-family:'Syne',sans-serif;font-size:1.75rem;font-weight:800;color:#fff;
-  box-shadow:0 0 32px rgba(99,102,241,.45);
-  position:relative;z-index:1;
-  animation:avatarGlow 2.2s ease-in-out infinite;
-}
-@keyframes avatarGlow{
-  0%,100%{box-shadow:0 0 22px rgba(99,102,241,.45)}
-  50%{box-shadow:0 0 45px rgba(99,102,241,.7),0 0 70px rgba(236,72,153,.3)}
-}
-
-/* ══════════════════════════════════════════════
-   FOOTER
-══════════════════════════════════════════════ */
-footer{
-  text-align:center;padding:2.8rem 2rem;
-  border-top:1px solid var(--border);
-  color:var(--muted);font-size:.83rem;
-  position:relative;z-index:1;
-}
-footer a{color:var(--cyan);text-decoration:none}
-footer span{color:var(--pink)}
-
-/* ══════════════════════════════════════════════
-   SCROLL REVEAL
-══════════════════════════════════════════════ */
-.reveal{opacity:0;transition:opacity .8s ease,transform .8s ease}
-.rev-up{transform:translateY(45px)}
-.rev-left{transform:translateX(-45px)}
-.rev-right{transform:translateX(45px)}
-.reveal.visible{opacity:1;transform:translate(0)}
-.delay-1{transition-delay:.1s}
-.delay-2{transition-delay:.2s}
-.delay-3{transition-delay:.3s}
-.delay-4{transition-delay:.4s}
-.delay-5{transition-delay:.5s}
-.delay-6{transition-delay:.6s}
-
-/* ══════════════════════════════════════════════
-   RESPONSIVE
-══════════════════════════════════════════════ */
-@media(max-width:1024px){
-  .projects-grid{grid-template-columns:repeat(2,1fr)}
-}
-@media(max-width:768px){
-  section{padding:4.5rem 1.5rem}
-  #navbar{padding:1rem 1.5rem}
-  .nav-links{display:none}
-  .nav-ham{display:block}
-  .hero-grid{grid-template-columns:1fr;gap:2.5rem}
-  .hero-right{order:-1}
-  .hero-card-wrap{width:240px;height:300px}
-  .spin-ring-1{width:220px;height:220px}
-  .spin-ring-2{width:160px;height:160px}
-  .skills-grid{grid-template-columns:1fr}
-  .contact-grid{grid-template-columns:1fr}
-  .projects-grid{grid-template-columns:1fr}
-  /* force any card with an inline grid-column back to auto */
-  .proj-card[style*="grid-column"]{grid-column:auto!important}
-  .edu-grid{grid-template-columns:1fr}
-  /* timeline date wraps cleanly */
-  .tl-top{flex-direction:column;gap:.3rem}
-  .tl-date{align-self:flex-start}
-  /* cert card stacks vertically on small screens */
-  .cert-card{flex-direction:column;align-items:flex-start;gap:.6rem}
-  .cert-date{margin-left:0;white-space:normal}
-  /* mobile menu dropdown */
-  .nav-links.mobile-open{
-    display:flex!important;flex-direction:column;
-    position:absolute;top:62px;right:1.5rem;
-    background:rgba(13,6,36,.97);
-    border:1px solid rgba(255,255,255,.1);
-    border-radius:14px;padding:1rem 1.5rem;gap:1.1rem;
-    z-index:2000;min-width:160px;
-    box-shadow:0 12px 40px rgba(0,0,0,.55);
+    --mono: 'JetBrains Mono', ui-monospace, monospace;
+    --serif: 'Fraunces', Georgia, serif;
   }
-}
-@media(max-width:400px){
-  .hero-card-wrap{width:200px;height:260px}
-  .spin-ring-1{width:185px;height:185px}
-  .spin-ring-2{width:135px;height:135px}
-  .hero-card{width:175px}
-}
-/* disable custom cursor on touch/mobile devices */
-@media(hover:none){
-  body{cursor:auto!important}
-  #cursor-dot,#cursor-ring{display:none!important}
-}
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--mono);
+    font-size: 14px;
+    line-height: 1.65;
+    overflow-x: hidden;
+    background-image:
+      radial-gradient(circle at 18% 8%, rgba(255,179,0,0.05), transparent 42%),
+      radial-gradient(circle at 82% 75%, rgba(0,179,164,0.04), transparent 42%);
+    background-attachment: fixed;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.012) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.012) 1px, transparent 1px);
+    background-size: 36px 36px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Status bar */
+  .statusbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10,12,16,0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+    padding: 10px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-dim);
+  }
+  .statusbar .left, .statusbar .right { display: flex; gap: 24px; align-items: center; }
+  .statusbar a {
+    color: var(--ink-dim);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .statusbar a:hover { color: var(--primary); }
+  .led {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--green);
+    box-shadow: 0 0 8px rgba(52,199,89,0.5);
+    animation: pulse 2s infinite;
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  .container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 32px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* HERO */
+  .hero {
+    padding: 80px 0 70px;
+    border-bottom: 1px solid var(--line);
+    position: relative;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 440px;
+    gap: 60px;
+    align-items: start;
+  }
+  .hero-tag {
+    color: var(--primary);
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .hero-tag::before {
+    content: '';
+    display: inline-block;
+    width: 32px;
+    height: 2px;
+    background: var(--primary);
+  }
+  .hero h1 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(48px, 6vw, 88px);
+    line-height: 1.0;
+    letter-spacing: -0.025em;
+    margin-bottom: 16px;
+    color: var(--ink);
+  }
+  .hero .subtitle {
+    font-family: var(--serif);
+    font-size: clamp(22px, 2.4vw, 30px);
+    font-style: italic;
+    font-weight: 300;
+    color: var(--primary);
+    margin-bottom: 28px;
+    line-height: 1.2;
+  }
+  .hero-sub {
+    color: var(--ink-dim);
+    font-size: 15px;
+    line-height: 1.75;
+    max-width: 640px;
+    margin-bottom: 32px;
+  }
+  .hero-sub strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 40px;
+  }
+  .cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 22px;
+    border: 1px solid var(--line);
+    background: var(--panel);
+    color: var(--ink);
+    text-decoration: none;
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: all 0.25s;
+  }
+  .cta:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+    transform: translateY(-2px);
+  }
+  .cta.primary {
+    background: var(--primary);
+    color: var(--bg);
+    border-color: var(--primary);
+    font-weight: 600;
+  }
+  .cta.primary:hover {
+    background: transparent;
+    color: var(--primary);
+  }
+  .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .meta-cell {
+    flex: 1;
+    min-width: 130px;
+    padding: 16px 20px;
+    border-right: 1px solid var(--line);
+  }
+  .meta-cell:last-child { border-right: none; }
+  .meta-label {
+    font-size: 10px;
+    color: var(--ink-low);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 6px;
+  }
+  .meta-value {
+    color: var(--ink);
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  /* Hero schematic - composite of the 7 project domains */
+  .hero-schematic {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    padding: 24px;
+    position: relative;
+  }
+  .hero-schematic::before {
+    content: 'CONTROLS PORTFOLIO';
+    position: absolute;
+    top: -1px;
+    right: 20px;
+    background: var(--bg);
+    color: var(--primary);
+    padding: 2px 10px;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+  }
+  .hero-schematic-title {
+    font-size: 10px;
+    color: var(--ink-low);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px dashed var(--line);
+  }
+  .hero-schematic svg { width: 100%; height: auto; display: block; }
+
+  /* Marquee strip */
+  .marquee {
+    overflow: hidden;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    padding: 20px 0;
+    background: var(--panel);
+  }
+  .marquee-track {
+    display: flex;
+    gap: 48px;
+    animation: scroll 50s linear infinite;
+    white-space: nowrap;
+  }
+  .marquee-item {
+    font-family: var(--serif);
+    font-size: 24px;
+    font-style: italic;
+    color: var(--ink-low);
+    font-weight: 300;
+  }
+  .marquee-item .dot {
+    color: var(--primary);
+    margin-left: 48px;
+  }
+  @keyframes scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* SECTIONS */
+  section {
+    padding: 90px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .section-header {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 40px;
+    margin-bottom: 56px;
+    align-items: baseline;
+  }
+  .section-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--primary);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+  .section-num span { color: var(--ink-low); margin-right: 12px; }
+  .section-title {
+    font-family: var(--serif);
+    font-size: clamp(32px, 4vw, 52px);
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  .section-title em {
+    font-style: italic;
+    color: var(--primary);
+  }
+  .section-sub {
+    color: var(--ink-dim);
+    font-size: 14px;
+    line-height: 1.7;
+    max-width: 720px;
+    margin-top: 16px;
+  }
+
+  /* About */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 60px;
+    align-items: start;
+  }
+  .about-prose {
+    color: var(--ink);
+    font-size: 15px;
+    line-height: 1.8;
+  }
+  .about-prose p + p { margin-top: 1.2em; }
+  .about-prose strong {
+    color: var(--ink);
+    font-weight: 600;
+    background: var(--primary-glow);
+    padding: 1px 4px;
+  }
+  .stat-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+  .stat {
+    background: var(--panel);
+    padding: 22px 24px;
+    border-left: 3px solid transparent;
+    transition: border-color 0.3s;
+  }
+  .stat:hover { border-left-color: var(--primary); }
+  .stat-num {
+    font-family: var(--serif);
+    font-size: 38px;
+    font-weight: 400;
+    color: var(--primary);
+    line-height: 1;
+    margin-bottom: 8px;
+    font-style: italic;
+  }
+  .stat-label {
+    color: var(--ink-dim);
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  /* SKILLS - grouped */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+  .skill-group {
+    background: var(--panel);
+    padding: 28px;
+    transition: background 0.3s;
+  }
+  .skill-group:hover { background: var(--panel-2); }
+  .skill-icon {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--primary);
+    letter-spacing: 0.2em;
+    margin-bottom: 14px;
+    text-transform: uppercase;
+  }
+  .skill-group h3 {
+    font-family: var(--serif);
+    font-size: 20px;
+    color: var(--ink);
+    margin-bottom: 16px;
+    font-weight: 400;
+  }
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .skill-tag {
+    display: inline-block;
+    padding: 4px 10px;
+    background: var(--panel-2);
+    border: 1px solid var(--line);
+    color: var(--ink-dim);
+    font-size: 11px;
+    transition: all 0.2s;
+  }
+  .skill-tag:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+  }
+
+  /* EXPERIENCE - timeline */
+  .timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+  .job {
+    background: var(--panel);
+    padding: 32px 36px;
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 32px;
+    align-items: start;
+    transition: background 0.3s;
+    border-left: 3px solid transparent;
+  }
+  .job:hover {
+    background: var(--panel-2);
+    border-left-color: var(--primary);
+  }
+  .job-meta {
+    color: var(--ink-low);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+  .job-period {
+    color: var(--primary);
+    font-weight: 600;
+    margin-bottom: 8px;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+  }
+  .job-company {
+    color: var(--ink);
+    font-size: 12.5px;
+    margin-bottom: 4px;
+    font-weight: 500;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+  .job-loc {
+    color: var(--ink-low);
+    font-size: 11px;
+  }
+  .job-title {
+    font-family: var(--serif);
+    font-size: 22px;
+    color: var(--ink);
+    line-height: 1.25;
+    margin-bottom: 16px;
+    font-weight: 400;
+  }
+  .job-bullets {
+    list-style: none;
+    color: var(--ink-dim);
+    font-size: 13.5px;
+    line-height: 1.75;
+  }
+  .job-bullets li {
+    padding-left: 18px;
+    position: relative;
+    margin-bottom: 10px;
+  }
+  .job-bullets li::before {
+    content: '\2192';
+    position: absolute;
+    left: 0;
+    color: var(--primary);
+    opacity: 0.6;
+  }
+  .job-bullets li strong {
+    color: var(--ink);
+    background: var(--primary-glow);
+    padding: 1px 4px;
+    font-weight: 600;
+  }
+
+  /* PROJECTS - the centerpiece */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .project {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.35s;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+  }
+  .project::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--accent, var(--primary));
+    transition: height 0.3s;
+  }
+  .project:hover {
+    transform: translateY(-6px);
+    border-color: var(--accent, var(--primary));
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+  }
+  .project:hover::before {
+    height: 5px;
+  }
+  .project-body {
+    padding: 28px 26px 22px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .project-tag {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent, var(--primary));
+    margin-bottom: 16px;
+    font-weight: 600;
+  }
+  .project-name {
+    font-family: var(--serif);
+    font-size: 22px;
+    color: var(--ink);
+    line-height: 1.2;
+    margin-bottom: 8px;
+    font-weight: 400;
+  }
+  .project-name em {
+    font-style: italic;
+    color: var(--accent, var(--primary));
+    font-weight: 300;
+  }
+  .project-date {
+    font-size: 10.5px;
+    color: var(--ink-low);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .project-desc {
+    color: var(--ink-dim);
+    font-size: 12.5px;
+    line-height: 1.7;
+    margin-bottom: 18px;
+    flex: 1;
+  }
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 20px;
+  }
+  .project-tags .ptag {
+    font-size: 10px;
+    padding: 3px 8px;
+    border: 1px solid var(--line);
+    color: var(--ink-low);
+    letter-spacing: 0.05em;
+  }
+  .project-footer {
+    border-top: 1px solid var(--line);
+    padding: 14px 26px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0,0,0,0.2);
+  }
+  .project-link {
+    font-size: 11px;
+    color: var(--accent, var(--primary));
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  .project-arrow {
+    color: var(--accent, var(--primary));
+    font-size: 18px;
+    transition: transform 0.3s;
+  }
+  .project:hover .project-arrow {
+    transform: translateX(6px);
+  }
+  .project-no {
+    font-family: var(--serif);
+    font-size: 11px;
+    font-style: italic;
+    color: var(--ink-low);
+    letter-spacing: 0.1em;
+  }
+
+  /* Custom accent colors per project */
+  .project.delta { --accent: var(--delta); }
+  .project.gantry { --accent: var(--safety); }
+  .project.tpow { --accent: var(--amber); }
+  .project.simple { --accent: var(--packml); }
+  .project.beckhoff { --accent: var(--beckhoff); }
+  .project.point { --accent: var(--cip); }
+  .project.rotary { --accent: var(--siemens); }
+
+  /* Education */
+  .edu-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .edu-card {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    padding: 28px;
+    border-top: 3px solid var(--primary);
+  }
+  .edu-degree {
+    font-family: var(--serif);
+    font-size: 20px;
+    color: var(--ink);
+    margin-bottom: 8px;
+    line-height: 1.3;
+    font-weight: 400;
+  }
+  .edu-school {
+    color: var(--primary);
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+  .edu-period {
+    color: var(--ink-low);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .edu-gpa {
+    display: inline-block;
+    background: var(--primary-glow);
+    color: var(--primary);
+    padding: 3px 10px;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    font-weight: 600;
+  }
+  .cert {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    padding: 24px 28px;
+    margin-top: 24px;
+    border-left: 3px solid var(--primary);
+  }
+  .cert-name {
+    font-family: var(--serif);
+    font-size: 17px;
+    color: var(--ink);
+    margin-bottom: 4px;
+    font-weight: 400;
+  }
+  .cert-meta {
+    color: var(--ink-low);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+  }
+
+  /* Contact */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+  .contact-method {
+    background: var(--panel);
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    transition: background 0.3s;
+    text-decoration: none;
+    color: inherit;
+  }
+  .contact-method:hover { background: var(--panel-2); }
+  .contact-label {
+    font-size: 10px;
+    color: var(--primary);
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .contact-value {
+    font-family: var(--serif);
+    font-size: 22px;
+    color: var(--ink);
+    font-weight: 400;
+    word-break: break-all;
+  }
+
+  /* Footer */
+  footer {
+    padding: 50px 0 40px;
+    border-top: 1px solid var(--line);
+    color: var(--ink-low);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+  footer .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  footer a {
+    color: var(--ink-low);
+    text-decoration: none;
+  }
+  footer a:hover { color: var(--primary); }
+
+  /* Responsive */
+  @media (max-width: 1000px) {
+    .projects-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 768px) {
+    .hero-grid { grid-template-columns: 1fr; }
+    .section-header { grid-template-columns: 1fr; gap: 16px; }
+    .about-grid { grid-template-columns: 1fr; gap: 32px; }
+    .skills-grid { grid-template-columns: 1fr; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .edu-grid { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .job { grid-template-columns: 1fr; gap: 16px; }
+    .statusbar { padding: 10px 16px; font-size: 10px; }
+    .statusbar .hide-mobile { display: none; }
+    .container { padding: 0 16px; }
+    section { padding: 60px 0; }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .fade { animation: fadeUp 0.9s ease-out backwards; }
+  .fade-1 { animation-delay: 0.1s; }
+  .fade-2 { animation-delay: 0.2s; }
+  .fade-3 { animation-delay: 0.3s; }
+  .fade-4 { animation-delay: 0.4s; }
 </style>
 </head>
 <body>
 
-<!-- ══════════════════════════════════════ LOADER -->
-<div id="loader">
-  <div class="loader-initials">PSK</div>
-  <div class="loader-bar-wrap"><div class="loader-bar"></div></div>
-  <div class="loader-text">Initializing Portfolio</div>
+<div class="statusbar">
+  <div class="left">
+    <span><span class="led"></span>AVAILABLE FOR HIRE</span>
+    <span class="hide-mobile">Maryville, MO &middot; Open to relocation</span>
+  </div>
+  <div class="right">
+    <a href="#projects" class="hide-mobile">Projects</a>
+    <a href="#experience" class="hide-mobile">Experience</a>
+    <a href="#contact">Contact</a>
+  </div>
 </div>
 
-<!-- ══════════════════════════════════════ CURSOR -->
-<div id="cursor-dot"></div>
-<div id="cursor-ring"></div>
-
-<!-- ══════════════════════════════════════ CANVAS -->
-<canvas id="particle-canvas"></canvas>
-
-<!-- ══════════════════════════════════════ NAVBAR -->
-<nav id="navbar">
-  <a href="#hero" class="nav-logo">Phani Sundar Koka</a>
-  <ul class="nav-links">
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#experience">Experience</a></li>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#education">Education</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-  <button class="nav-ham" id="navHam">&#9776;</button>
-</nav>
-
-<!-- ══════════════════════════════════════ HERO -->
-<section id="hero">
+<section class="hero">
   <div class="container">
     <div class="hero-grid">
-      <!-- LEFT -->
-      <div class="hero-left reveal rev-left">
-        <div class="avail-tag"><span class="avail-dot"></span>Currently at WinWinLabs · Open to Opportunities</div>
-        <h1 class="hero-name">
-          <span class="shimmer-name">Phani Sundar</span><br>Koka
-        </h1>
-        <p class="hero-sub">Controls &amp; Automation Engineer with 4+ years of hands-on experience across industrial automation, PLC-based control systems, sensor systems quality assurance, and graduate-level engineering at Missouri S&T. Proven track record of measurable impact: reduced equipment startup time by 15%, cut HMI escalation calls by 30%, and delivered 8+ retrofit and commissioning projects with zero post-commissioning failures. Proficient in Allen-Bradley CompactLogix/ControlLogix (Studio 5000), Siemens S7-1200/S7-1500 (TIA Portal), and Beckhoff TwinCAT 3, with deep expertise in multi-axis motion control (Kinetix, SINAMICS), functional safety (GuardLogix, ISO 13849), SCADA/HMI development (FactoryTalk, WinCC, Ignition), sensor validation &amp; QA, and industrial networking across EtherNet/IP, PROFINET, and Modbus. M.S. Electrical Engineering — Missouri S&amp;T.</p>
-        <div class="hero-ctas">
-          <a href="#projects" class="btn-primary">View Projects</a>
-          <a href="#contact" class="btn-outline">Get In Touch</a>
+      <div>
+        <div class="hero-tag fade fade-1">Controls &middot; Automation &middot; MHE Systems</div>
+        <h1 class="fade fade-2">Phani Sundar <em style="font-style:italic; color:var(--primary); font-weight:300;">Koka</em></h1>
+        <div class="subtitle fade fade-2">PLC, motion control &amp; SCADA across three vendor ecosystems.</div>
+        <p class="hero-sub fade fade-3">
+          Controls and Automation Engineer with <strong>4+ years</strong> of hands-on experience
+          commissioning material handling, manufacturing, and power generation systems. Fluent
+          across <strong>Rockwell ControlLogix / GuardLogix</strong>,
+          <strong>Siemens S7-1500 / TIA Portal</strong>, and <strong>Beckhoff TwinCAT 3</strong>
+          &mdash; from servo tuning and CIP Motion to SIL-rated safety integration and FactoryTalk
+          SCADA design. M.S. Electrical Engineering, Missouri S&amp;T.
+        </p>
+        <div class="cta-row fade fade-4">
+          <a href="#projects" class="cta primary">View Projects &rarr;</a>
+          <a href="mailto:phanisundarkoka@gmail.com" class="cta">Email</a>
+          <a href="https://linkedin.com/in/pkoka17" target="_blank" rel="noopener" class="cta">LinkedIn</a>
         </div>
-      </div>
-      <!-- RIGHT — 3D Floating Card -->
-      <div class="hero-right reveal rev-right">
-        <div class="hero-card-wrap">
-          <div class="hero-orb"></div>
-          <div class="spin-ring spin-ring-1"></div>
-          <div class="spin-ring spin-ring-2"></div>
-          <div class="hero-card">
-            <div class="card-avatar">PSK</div>
-            <div class="card-name">Phani Sundar Koka</div>
-            <div class="card-role">Controls &amp; Automation Engineer</div>
-            <div class="card-stats">
-              <div class="c-stat"><span class="c-stat-n">4+</span><span class="c-stat-l">Years Exp.</span></div>
-              <div class="c-stat"><span class="c-stat-n">8+</span><span class="c-stat-l">Systems Built</span></div>
-              <div class="c-stat"><span class="c-stat-n">3.5</span><span class="c-stat-l">MS GPA</span></div>
-            </div>
+        <div class="hero-meta">
+          <div class="meta-cell">
+            <div class="meta-label">Experience</div>
+            <div class="meta-value">4+ years</div>
+          </div>
+          <div class="meta-cell">
+            <div class="meta-label">Systems</div>
+            <div class="meta-value">8+ commissioned</div>
+          </div>
+          <div class="meta-cell">
+            <div class="meta-label">Platforms</div>
+            <div class="meta-value">AB &middot; Siemens &middot; Beckhoff</div>
+          </div>
+          <div class="meta-cell">
+            <div class="meta-label">Education</div>
+            <div class="meta-value">M.S. EE &middot; Missouri S&amp;T</div>
           </div>
         </div>
+      </div>
+
+      <!-- Composite schematic representing the seven project domains -->
+      <div class="hero-schematic fade fade-3">
+        <div class="hero-schematic-title">DOMAINS / SEVEN PROJECTS</div>
+        <svg viewBox="0 0 380 440" xmlns="http://www.w3.org/2000/svg">
+          <!-- Central controller node -->
+          <g>
+            <rect x="140" y="190" width="100" height="60" fill="#1c2127" stroke="#ffb300" stroke-width="1.5"/>
+            <rect x="140" y="190" width="100" height="16" fill="#ffb300"/>
+            <text x="190" y="201" fill="#0a0c10" font-family="JetBrains Mono" font-size="8" text-anchor="middle" font-weight="700">PLC</text>
+            <text x="190" y="222" fill="#e8eaf0" font-family="JetBrains Mono" font-size="9" text-anchor="middle">CONTROLLER</text>
+            <text x="190" y="238" fill="#8a8e98" font-family="JetBrains Mono" font-size="6" text-anchor="middle">AB &middot; Siemens &middot; Beckhoff</text>
+          </g>
+
+          <!-- 7 domain nodes radiating outward -->
+          <!-- Top: Delta-Bot (violet) -->
+          <g>
+            <line x1="190" y1="190" x2="190" y2="80" stroke="#9b6cff" stroke-width="1" stroke-dasharray="3,2" opacity="0.6"/>
+            <circle cx="190" cy="70" r="22" fill="#1c2127" stroke="#9b6cff" stroke-width="1.5"/>
+            <text x="190" y="68" fill="#9b6cff" font-family="JetBrains Mono" font-size="7" text-anchor="middle" font-weight="700">DELTA</text>
+            <text x="190" y="78" fill="#8a8e98" font-family="JetBrains Mono" font-size="5" text-anchor="middle">7 servos</text>
+          </g>
+
+          <!-- Top-right: Gantry (safety yellow) -->
+          <g>
+            <line x1="240" y1="200" x2="320" y2="120" stroke="#ffcc00" stroke-width="1" stroke-dasharray="3,2" opacity="0.6"/>
+            <circle cx="332" cy="108" r="22" fill="#1c2127" stroke="#ffcc00" stroke-width="1.5"/>
+            <text x="332" y="106" fill="#ffcc00" font-family="JetBrains Mono" font-size="7" text-anchor="middle" font-weight="700">GANTRY</text>
+            <text x="332" y="116" fill="#8a8e98" font-family="JetBrains Mono" font-size="5" text-anchor="middle">SIL safety</text>
+          </g>
+
+          <!-- Right: TPow Unload (amber) -->
+          <g>
+            <line x1="240" y1="220" x2="335" y2="220" stroke="#f5a623" stroke-width="1" stroke-dasharray="3,2" opacity="0.6"/>
+            <circle cx="348" cy="220" r="22" fill="#1c2127" stroke="#f5a623" stroke-width="1.5"/>
+            <text x="348" y="218" fill="#f5a623" font-family="JetBrains Mono" font-size="7" text-anchor="middle" font-weight="700">TPOW</text>
+            <text x="348" y="228" fill="#8a8e98" font-family="JetBrains Mono" font-size="5" text-anchor="middle">pneumatic</text>
+          </g>
+
+          <!-- Bottom-right: Simple Motion (packml amber) -->
+          <g>
+            <line x1="240" y1="240" x2="320" y2="320" stroke="#ffaa00" stroke-width="1" stroke-dasharray="3,2" opacity="0.6"/>
+            <circle cx="332" cy="332" r="22" fill="#1c2127" stroke="#ffaa00" stroke-width="1.5"/>
+            <text x="332" y="328" fill="#ffaa00" font-family="JetBrains Mono" font-size="6" text-anchor="middle" font-weight="700">SIMPLE</text>
+            <text x="332" y="338" fill="#8a8e98" font-family="JetBrains Mono" font-size="5" text-anchor="middle">dual-vendor</text>
+          </g>
+
+          <!-- Bottom: Beckhoff (red) -->
+          <g>
+            <line x1="190" y1="250" x2="190" y2="360" stroke="#ce0e2d" stroke-width="1" stroke-dasharray="3,2" opacity="0.6"/>
+            <circle cx="190" cy="372" r="22" fill="#1c2127" stroke="#ce0e2d" stroke-width="1.5"/>
+            <text x="190" y="370" fill="#ce0e2d" font-family="JetBrains Mono" font-size="6" text-anchor="middle" font-weight="700">BECKHOFF</text>
+            <text x="190" y="380" fill="#8a8e98" font-family="JetBrains Mono" font-size="5" text-anchor="middle">EtherCAT</text>
+          </g>
+
+          <!-- Bottom-left: Point I/O (cip teal) -->
+          <g>
+            <line x1="140" y1="240" x2="60" y2="320" stroke="#00b3a4" stroke-width="1" stroke-dasharray="3,2" opacity="0.6"/>
+            <circle cx="48" cy="332" r="22" fill="#1c2127" stroke="#00b3a4" stroke-width="1.5"/>
+            <text x="48" y="328" fill="#00b3a4" font-family="JetBrains Mono" font-size="6" text-anchor="middle" font-weight="700">POINT</text>
+            <text x="48" y="338" fill="#8a8e98" font-family="JetBrains Mono" font-size="5" text-anchor="middle">distributed</text>
+          </g>
+
+          <!-- Top-left: Rotary Knife (siemens teal) -->
+          <g>
+            <line x1="140" y1="200" x2="60" y2="120" stroke="#009999" stroke-width="1" stroke-dasharray="3,2" opacity="0.6"/>
+            <circle cx="48" cy="108" r="22" fill="#1c2127" stroke="#009999" stroke-width="1.5"/>
+            <text x="48" y="106" fill="#009999" font-family="JetBrains Mono" font-size="7" text-anchor="middle" font-weight="700">ROTARY</text>
+            <text x="48" y="116" fill="#8a8e98" font-family="JetBrains Mono" font-size="5" text-anchor="middle">S120 sync</text>
+          </g>
+
+          <!-- Bottom legend strip -->
+          <g transform="translate(20, 408)">
+            <rect x="0" y="0" width="340" height="22" fill="none" stroke="#2a2f38"/>
+            <text x="170" y="14" fill="#8a8e98" font-family="JetBrains Mono" font-size="8" text-anchor="middle">PackML &middot; CIP Motion &middot; SIL Safety &middot; SCADA</text>
+          </g>
+        </svg>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ══════════════════════════════════════ MARQUEE -->
-<div class="marquee-wrap">
-  <div class="marquee-track" id="marqueeTrack">
-    <span class="marquee-item"><span>◆</span>WinWinLabs</span>
-    <span class="marquee-item"><span>◆</span>Tata Consulting Engineers</span>
-    <span class="marquee-item"><span>◆</span>Missouri S&amp;T</span>
-    <span class="marquee-item"><span>◆</span>Dr. Narla Tata Rao Power Station</span>
-    <span class="marquee-item"><span>◆</span>Allen-Bradley</span>
-    <span class="marquee-item"><span>◆</span>Siemens</span>
-    <span class="marquee-item"><span>◆</span>Beckhoff</span>
-    <span class="marquee-item"><span>◆</span>Studio 5000</span>
-    <span class="marquee-item"><span>◆</span>TIA Portal</span>
-    <span class="marquee-item"><span>◆</span>FactoryTalk</span>
-    <span class="marquee-item"><span>◆</span>Ignition SCADA</span>
-    <span class="marquee-item"><span>◆</span>EtherNet/IP</span>
-    <span class="marquee-item"><span>◆</span>PROFINET</span>
-    <span class="marquee-item"><span>◆</span>PackML</span>
-    <!-- duplicate for seamless loop -->
-    <span class="marquee-item"><span>◆</span>WinWinLabs</span>
-    <span class="marquee-item"><span>◆</span>Tata Consulting Engineers</span>
-    <span class="marquee-item"><span>◆</span>Missouri S&amp;T</span>
-    <span class="marquee-item"><span>◆</span>Dr. Narla Tata Rao Power Station</span>
-    <span class="marquee-item"><span>◆</span>Allen-Bradley</span>
-    <span class="marquee-item"><span>◆</span>Siemens</span>
-    <span class="marquee-item"><span>◆</span>Beckhoff</span>
-    <span class="marquee-item"><span>◆</span>Studio 5000</span>
-    <span class="marquee-item"><span>◆</span>TIA Portal</span>
-    <span class="marquee-item"><span>◆</span>FactoryTalk</span>
-    <span class="marquee-item"><span>◆</span>Ignition SCADA</span>
-    <span class="marquee-item"><span>◆</span>EtherNet/IP</span>
-    <span class="marquee-item"><span>◆</span>PROFINET</span>
-    <span class="marquee-item"><span>◆</span>PackML</span>
+<!-- Marquee -->
+<div class="marquee">
+  <div class="marquee-track">
+    <div class="marquee-item">Studio 5000<span class="dot">&middot;</span></div>
+    <div class="marquee-item">TIA Portal V19<span class="dot">&middot;</span></div>
+    <div class="marquee-item">TwinCAT 3<span class="dot">&middot;</span></div>
+    <div class="marquee-item">CIP Motion<span class="dot">&middot;</span></div>
+    <div class="marquee-item">PROFINET IRT<span class="dot">&middot;</span></div>
+    <div class="marquee-item">FactoryTalk View<span class="dot">&middot;</span></div>
+    <div class="marquee-item">Ignition SCADA<span class="dot">&middot;</span></div>
+    <div class="marquee-item">PackML<span class="dot">&middot;</span></div>
+    <div class="marquee-item">SIL Safety<span class="dot">&middot;</span></div>
+    <div class="marquee-item">Cognex Vision<span class="dot">&middot;</span></div>
+    <!-- duplicate for seamless scroll -->
+    <div class="marquee-item">Studio 5000<span class="dot">&middot;</span></div>
+    <div class="marquee-item">TIA Portal V19<span class="dot">&middot;</span></div>
+    <div class="marquee-item">TwinCAT 3<span class="dot">&middot;</span></div>
+    <div class="marquee-item">CIP Motion<span class="dot">&middot;</span></div>
+    <div class="marquee-item">PROFINET IRT<span class="dot">&middot;</span></div>
+    <div class="marquee-item">FactoryTalk View<span class="dot">&middot;</span></div>
+    <div class="marquee-item">Ignition SCADA<span class="dot">&middot;</span></div>
+    <div class="marquee-item">PackML<span class="dot">&middot;</span></div>
+    <div class="marquee-item">SIL Safety<span class="dot">&middot;</span></div>
+    <div class="marquee-item">Cognex Vision<span class="dot">&middot;</span></div>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════ SKILLS -->
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num"><span>01</span>Profile</div>
+      <h2 class="section-title">The fluency every <em>plant floor</em> needs.</h2>
+    </div>
+
+    <div class="about-grid">
+      <div class="about-prose">
+        <p>
+          Controls and Automation Engineer with <strong>4+ years of hands-on experience</strong>
+          maximizing equipment reliability and operational performance across manufacturing,
+          material handling, and power generation environments. Expert in PLC/PC controller
+          programming and troubleshooting &mdash; Allen-Bradley CompactLogix/ControlLogix (Studio
+          5000 / RSLogix 5000), Siemens S7-1200/S7-1500 (TIA Portal), and Beckhoff CX5140
+          (TwinCAT 3) &mdash; with deep expertise in SCADA programs (Ignition, FactoryTalk View
+          ME/SE, SIMATIC WinCC), industrial networking (EtherNet/IP, PROFINET, ControlNet,
+          DeviceNet), and motor control including servo drives and VFDs.
+        </p>
+        <p>
+          Delivered <strong>8+ commissioned MHE systems</strong> &mdash; conveyors, sortation,
+          robotic cells, scanners, cameras, and vision systems (Cognex, Keyence) &mdash; with
+          zero post-commissioning failures and experience supporting FAT/SAT/IQ/OQ/PQ
+          validation-style testing protocols in GMP-adjacent regulated environments. Measured
+          results: <strong>15% reduction</strong> in equipment startup time, <strong>30%
+          reduction</strong> in HMI escalation calls, and <strong>12% reduction</strong> in
+          conveyor downtime across deployed systems.
+        </p>
+      </div>
+
+      <div class="stat-grid">
+        <div class="stat">
+          <div class="stat-num">15%</div>
+          <div class="stat-label">Reduction in equipment startup time</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">30%</div>
+          <div class="stat-label">Cut in HMI escalation calls</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">12%</div>
+          <div class="stat-label">Reduction in conveyor downtime</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">8+</div>
+          <div class="stat-label">Commissioned MHE systems, zero failures</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
 <section id="skills">
   <div class="container">
-    <div class="reveal rev-up">
-      <div class="sec-label">Technical Expertise</div>
-      <h2 class="sec-title">Skills &amp; Technologies</h2>
-      <p class="sec-sub">Proficient across the full industrial automation stack — from PLC programming and servo tuning to HMI design and safety integration.</p>
+    <div class="section-header">
+      <div class="section-num"><span>02</span>Technical Skills</div>
+      <h2 class="section-title">Full <em>cross-vendor</em> stack.</h2>
     </div>
+    <p class="section-sub" style="margin-bottom: 32px;">Programming languages, control platforms, networking protocols, safety standards, and engineering tools &mdash; organized by domain.</p>
+
     <div class="skills-grid">
-      <!-- SKILL BARS -->
-      <div>
-        <div class="skill-item reveal rev-left delay-1">
-          <div class="skill-hd"><span class="skill-name">Allen-Bradley Studio 5000 / PLCs</span><span class="skill-pct">95%</span></div>
-          <div class="skill-track"><div class="skill-fill sf-cyan" data-pct="95"></div></div>
-        </div>
-        <div class="skill-item reveal rev-left delay-2">
-          <div class="skill-hd"><span class="skill-name">Siemens TIA Portal / S7 PLCs</span><span class="skill-pct">88%</span></div>
-          <div class="skill-track"><div class="skill-fill sf-indigo" data-pct="88"></div></div>
-        </div>
-        <div class="skill-item reveal rev-left delay-3">
-          <div class="skill-hd"><span class="skill-name">SCADA / HMI Development</span><span class="skill-pct">85%</span></div>
-          <div class="skill-track"><div class="skill-fill sf-pink" data-pct="85"></div></div>
-        </div>
-        <div class="skill-item reveal rev-left delay-4">
-          <div class="skill-hd"><span class="skill-name">Multi-Axis Motion Control</span><span class="skill-pct">83%</span></div>
-          <div class="skill-track"><div class="skill-fill sf-cyan" data-pct="83"></div></div>
-        </div>
-        <div class="skill-item reveal rev-left delay-5">
-          <div class="skill-hd"><span class="skill-name">Industrial Networking (EIP / PROFINET)</span><span class="skill-pct">80%</span></div>
-          <div class="skill-track"><div class="skill-fill sf-amber" data-pct="80"></div></div>
-        </div>
-        <div class="skill-item reveal rev-left delay-6">
-          <div class="skill-hd"><span class="skill-name">Safety Systems (SIS / ISO 13849)</span><span class="skill-pct">78%</span></div>
-          <div class="skill-track"><div class="skill-fill sf-teal" data-pct="78"></div></div>
-        </div>
-        <div class="skill-item reveal rev-left">
-          <div class="skill-hd"><span class="skill-name">MATLAB / Simulink</span><span class="skill-pct">75%</span></div>
-          <div class="skill-track"><div class="skill-fill sf-pink" data-pct="75"></div></div>
-        </div>
-        <div class="skill-item reveal rev-left">
-          <div class="skill-hd"><span class="skill-name">AutoCAD / Electrical Schematics</span><span class="skill-pct">70%</span></div>
-          <div class="skill-track"><div class="skill-fill sf-indigo" data-pct="70"></div></div>
-        </div>
-        <div class="skill-item reveal rev-left">
-          <div class="skill-hd"><span class="skill-name">Sensor V&amp;V / QA Testing</span><span class="skill-pct">82%</span></div>
-          <div class="skill-track"><div class="skill-fill sf-teal" data-pct="82"></div></div>
+      <div class="skill-group">
+        <div class="skill-icon">01 / Programming</div>
+        <h3>PLC &amp; Control</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">Allen-Bradley CompactLogix</span>
+          <span class="skill-tag">ControlLogix</span>
+          <span class="skill-tag">Studio 5000</span>
+          <span class="skill-tag">RSLogix 5000</span>
+          <span class="skill-tag">Siemens S7-1200/1500</span>
+          <span class="skill-tag">TIA Portal</span>
+          <span class="skill-tag">Beckhoff CX5140</span>
+          <span class="skill-tag">TwinCAT 3</span>
+          <span class="skill-tag">Ladder Logic</span>
+          <span class="skill-tag">Structured Text</span>
+          <span class="skill-tag">FBD</span>
+          <span class="skill-tag">PackML</span>
+          <span class="skill-tag">UDTs / AOIs</span>
+          <span class="skill-tag">IEC 61131-3</span>
         </div>
       </div>
-      <!-- TECH CLOUD -->
-      <div class="reveal rev-right">
-        <div class="cloud-title">All Technologies</div>
-        <div class="tech-cloud">
-          <span class="t-chip">CompactLogix</span><span class="t-chip">ControlLogix</span>
-          <span class="t-chip">Siemens S7-1200</span><span class="t-chip">Siemens S7-1500</span>
-          <span class="t-chip">Beckhoff CX5140</span><span class="t-chip">ABB AC500</span>
-          <span class="t-chip">Ladder Logic</span><span class="t-chip">Structured Text</span>
-          <span class="t-chip">FBD</span><span class="t-chip">PackML</span>
-          <span class="t-chip">Kinetix 350</span><span class="t-chip">Kinetix 5500</span>
-          <span class="t-chip">SINAMICS S120</span><span class="t-chip">VFDs</span>
-          <span class="t-chip">PID Tuning</span><span class="t-chip">S-Profile Motion</span>
-          <span class="t-chip">Virtual Axis Sync</span><span class="t-chip">CIP Motion</span>
-          <span class="t-chip">FactoryTalk View SE</span><span class="t-chip">FactoryTalk View ME</span>
-          <span class="t-chip">FactoryTalk Optix</span><span class="t-chip">FactoryTalk Historian</span>
-          <span class="t-chip">WinCC</span><span class="t-chip">Ignition SCADA</span>
-          <span class="t-chip">EtherNet/IP</span><span class="t-chip">PROFINET</span>
-          <span class="t-chip">PROFIBUS</span><span class="t-chip">Modbus TCP/RTU</span>
-          <span class="t-chip">ControlNet</span><span class="t-chip">DeviceNet</span>
-          <span class="t-chip">CIP Safety</span><span class="t-chip">Safe Torque Off</span>
-          <span class="t-chip">Light Curtains</span><span class="t-chip">GuardLogix</span>
-          <span class="t-chip">MATLAB</span><span class="t-chip">Simulink</span>
-          <span class="t-chip">AutoCAD</span><span class="t-chip">P&amp;ID</span>
-          <span class="t-chip">TwinCAT 3</span><span class="t-chip">EtherCAT</span>
-          <span class="t-chip">AOI / UDT</span><span class="t-chip">MSG Blocks</span>
-          <span class="t-chip">FAT / SAT</span><span class="t-chip">CMMS</span>
-          <span class="t-chip">Motion Analyzer</span><span class="t-chip">Remote I/O</span>
-          <span class="t-chip">Alarm Management</span><span class="t-chip">Operator Interface Design</span>
-          <span class="t-chip">SQL-based Logging</span><span class="t-chip">LOTO</span>
-          <span class="t-chip">NEC</span><span class="t-chip">Preventive Maintenance</span>
-          <span class="t-chip">Cognex</span><span class="t-chip">Keyence</span>
-          <span class="t-chip">Sensor V&amp;V</span><span class="t-chip">System-Level Test Plans</span>
-          <span class="t-chip">Functional Testing</span><span class="t-chip">Integration Testing</span>
-          <span class="t-chip">Signal Acquisition Analysis</span><span class="t-chip">Regulatory Compliance</span>
-          <span class="t-chip">Microsoft Office Suite</span>
+
+      <div class="skill-group">
+        <div class="skill-icon">02 / Interface</div>
+        <h3>SCADA &amp; HMI</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">Ignition SCADA</span>
+          <span class="skill-tag">FactoryTalk View ME/SE</span>
+          <span class="skill-tag">FactoryTalk Optix</span>
+          <span class="skill-tag">FactoryTalk Historian</span>
+          <span class="skill-tag">SIMATIC WinCC</span>
+          <span class="skill-tag">TwinCAT HMI</span>
+          <span class="skill-tag">Alarm Management</span>
+          <span class="skill-tag">Real-Time Monitoring</span>
+          <span class="skill-tag">Operator Interface Design</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-icon">03 / Networking</div>
+        <h3>Industrial Networks</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">EtherNet/IP</span>
+          <span class="skill-tag">ControlNet</span>
+          <span class="skill-tag">DeviceNet</span>
+          <span class="skill-tag">PROFINET IRT</span>
+          <span class="skill-tag">PROFIBUS</span>
+          <span class="skill-tag">Modbus TCP/RTU</span>
+          <span class="skill-tag">CIP</span>
+          <span class="skill-tag">CIP Safety</span>
+          <span class="skill-tag">Remote I/O</span>
+          <span class="skill-tag">Point I/O</span>
+          <span class="skill-tag">Switch Configuration</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-icon">04 / Motion</div>
+        <h3>Drives &amp; Servo</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">Kinetix 350/5500/5700</span>
+          <span class="skill-tag">SINAMICS S120</span>
+          <span class="skill-tag">PowerFlex VFDs</span>
+          <span class="skill-tag">Multi-Axis CIP Motion</span>
+          <span class="skill-tag">S-Curve Profile</span>
+          <span class="skill-tag">MAM / MCLM / MATC</span>
+          <span class="skill-tag">PID / Servo Tuning</span>
+          <span class="skill-tag">Motor Starters</span>
+          <span class="skill-tag">DC Drives</span>
+          <span class="skill-tag">Autotune</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-icon">05 / MHE &amp; Vision</div>
+        <h3>Material Handling</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">Conveyors</span>
+          <span class="skill-tag">Sortation Systems</span>
+          <span class="skill-tag">Robotic Cells</span>
+          <span class="skill-tag">Scanners</span>
+          <span class="skill-tag">Cameras</span>
+          <span class="skill-tag">Print &amp; Apply</span>
+          <span class="skill-tag">Cognex Vision</span>
+          <span class="skill-tag">Keyence Vision</span>
+          <span class="skill-tag">Product Tracing</span>
+          <span class="skill-tag">Defect Detection</span>
+          <span class="skill-tag">WCS Integration</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-icon">06 / Safety</div>
+        <h3>Safety &amp; Compliance</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">GuardLogix</span>
+          <span class="skill-tag">STEP 7 Safety</span>
+          <span class="skill-tag">ISO 13849</span>
+          <span class="skill-tag">SIL Rating</span>
+          <span class="skill-tag">SIS</span>
+          <span class="skill-tag">FAT/SAT</span>
+          <span class="skill-tag">IQ/OQ/PQ</span>
+          <span class="skill-tag">GMP</span>
+          <span class="skill-tag">Safe Torque Off</span>
+          <span class="skill-tag">Light Curtains</span>
+          <span class="skill-tag">E-Stops</span>
+          <span class="skill-tag">LOTO</span>
+          <span class="skill-tag">OSHA</span>
+          <span class="skill-tag">NFPA 79</span>
+          <span class="skill-tag">NEC</span>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ══════════════════════════════════════ EXPERIENCE -->
-<section id="experience">
-  <div class="container">
-    <div class="reveal rev-up">
-      <div class="sec-label">Career History</div>
-      <h2 class="sec-title">Professional Experience</h2>
-      <p class="sec-sub">Hands-on experience spanning sensor systems QA, manufacturing, power generation, and material handling environments — from I/O mapping and commissioning to system-level validation and verification.</p>
-    </div>
-    <div class="timeline">
-
-      <!-- WinWinLabs -->
-      <div class="tl-item reveal rev-left">
-        <div class="tl-dot" style="background:var(--pink);box-shadow:0 0 12px var(--pink)"></div>
-        <div class="tl-card">
-          <div class="tl-top">
-            <div class="tl-role">Quality Assurance &amp; Validation Analyst — Sensor Systems</div>
-            <div class="tl-date">Feb 2026 – Present</div>
-          </div>
-          <div class="tl-co"><em>WinWinLabs</em> &nbsp;·&nbsp; Plymouth, MI &nbsp;·&nbsp; Full-Time</div>
-          <ul class="tl-ul">
-            <li>Develop and execute system-level validation and verification (V&amp;V) test plans for sensor-based electrical systems, evaluating signal accuracy, reliability, and performance against defined engineering specifications.</li>
-            <li>Conduct functional, integration, and performance testing of hardware–software systems — verify signal acquisition integrity, data processing accuracy, and sensor response behavior under varied test conditions.</li>
-            <li>Diagnose, troubleshoot, and resolve sensor interface faults and electrical anomalies; document root cause findings and corrective actions, maintaining <strong>100% system compliance</strong> across all test cycles.</li>
-            <li>Author and maintain structured technical documentation including test protocols, validation reports, and troubleshooting references; ensure traceability of results to support regulatory compliance requirements.</li>
-            <li>Drive cross-functional collaboration with engineering and development teams to validate system specifications, electrical interface requirements, and sensor integration criteria — managed stakeholder communications across <strong>3+ concurrent workstreams</strong>.</li>
-          </ul>
-          <div class="tl-badges">
-            <span class="badge b-teal">Sensor V&amp;V</span>
-            <span class="badge b-cyan">Functional Testing</span>
-            <span class="badge b-pink">Integration Testing</span>
-            <span class="badge b-indigo">Signal Acquisition</span>
-            <span class="badge b-amber">Technical Documentation</span>
-            <span class="badge b-teal">Regulatory Compliance</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- TCE -->
-      <div class="tl-item reveal rev-left">
-        <div class="tl-dot"></div>
-        <div class="tl-card">
-          <div class="tl-top">
-            <div class="tl-role">Automation &amp; Maintenance Engineer</div>
-            <div class="tl-date">Oct 2022 – Dec 2023</div>
-          </div>
-          <div class="tl-co"><em>Tata Consulting Engineers (TCE)</em> &nbsp;·&nbsp; Full-Time</div>
-          <ul class="tl-ul">
-            <li>Developed and validated PLC logic for 8+ manufacturing and material handling systems using Allen-Bradley Studio 5000 and Siemens TIA Portal — covering sequencing, interlocks, alarms, and startup/shutdown routines, reducing equipment startup time by <strong>15%</strong>.</li>
-            <li>Executed FAT and SAT alongside project and client teams, identifying and resolving 10–15 logic discrepancies per project before site deployment, protecting go-live timelines and eliminating post-deployment rework.</li>
-            <li>Integrated conveyors, sortation systems, robotic cells, and vision systems (Cognex / Keyence) into PLC architectures — improving defect identification speed by <strong>20%</strong> and production flow reliability.</li>
-            <li>Designed FactoryTalk View SE HMI screens with real-time status, alarms, and manual controls; iterated layouts based on operator feedback, cutting floor-level escalation calls by <strong>30%</strong>.</li>
-            <li>Diagnosed and resolved communication faults across EtherNet/IP, ControlNet, DeviceNet, and Modbus TCP/IP networks, restoring stable communication and reducing network-related downtime.</li>
-            <li>Led PLC retrofit projects replacing legacy relay panels with Allen-Bradley and Siemens hardware — completed full functional testing with zero post-commissioning failures.</li>
-            <li>Leveraged FactoryTalk Historian to surface recurring faults and process drift, driving targeted changes in control logic and preventive maintenance schedules.</li>
-          </ul>
-          <div class="tl-badges">
-            <span class="badge b-cyan">Studio 5000</span>
-            <span class="badge b-indigo">TIA Portal</span>
-            <span class="badge b-pink">FactoryTalk View SE</span>
-            <span class="badge b-amber">FAT / SAT</span>
-            <span class="badge b-teal">EtherNet/IP</span>
-            <span class="badge b-cyan">FactoryTalk Historian</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Power Station Intern -->
-      <div class="tl-item reveal rev-left delay-2">
-        <div class="tl-dot" style="background:var(--indigo);box-shadow:0 0 12px var(--indigo)"></div>
-        <div class="tl-card">
-          <div class="tl-top">
-            <div class="tl-role">Process Control Intern</div>
-            <div class="tl-date">Feb 2020 – Nov 2020</div>
-          </div>
-          <div class="tl-co"><em>Dr. Narla Tata Rao Thermal Power Station</em> &nbsp;·&nbsp; Internship</div>
-          <ul class="tl-ul">
-            <li>Optimized Siemens S7-1200 PLC ladder logic and troubleshooting procedures for coal handling systems — reduced conveyor downtime by <strong>12%</strong>.</li>
-            <li>Monitored SCADA/HMI screens during operational shifts; implemented E-stop and belt-alignment safety interlocks, achieving <strong>100% ISO compliance</strong>.</li>
-            <li>Maintained PROFINET, PROFIBUS, and Modbus TCP/IP communication links between PLCs, SCADA, and electrical distribution through routine checks and targeted fault resolution.</li>
-            <li>Implemented controlled PLC logic modifications in TIA Portal using Ladder Logic and FBD; changes passed formal review and went live, improving equipment uptime.</li>
-            <li>Verified interlock and permissive logic for conveyor and material handling systems against design documentation, identifying configuration drift and restoring compliance.</li>
-            <li>Contributed to control loop analysis using RGA and SVD methods in MATLAB and Octave — evaluated sensor placement and loop pairing, improving overall loop performance.</li>
-            <li>Updated wiring diagrams, PLC logic notes, and troubleshooting references as field changes were made, keeping documentation aligned with actual installations.</li>
-          </ul>
-          <div class="tl-badges">
-            <span class="badge b-indigo">Siemens S7-1200</span>
-            <span class="badge b-cyan">PROFINET / PROFIBUS</span>
-            <span class="badge b-pink">SCADA/HMI</span>
-            <span class="badge b-amber">MATLAB / Octave</span>
-            <span class="badge b-teal">Safety Interlocks</span>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════════ PROJECTS -->
+<!-- PROJECTS -->
 <section id="projects">
   <div class="container">
-    <div class="reveal rev-up">
-      <div class="sec-label">Engineering Work</div>
-      <h2 class="sec-title">Projects</h2>
-      <p class="sec-sub">Graduate coursework and industry projects spanning delta robotics, gantry motion, powder conveying, safety systems, and multi-platform PLC control.</p>
+    <div class="section-header">
+      <div class="section-num"><span>03</span>Engineering Projects</div>
+      <h2 class="section-title">Seven projects, <em>full</em> coverage.</h2>
     </div>
+    <p class="section-sub" style="margin-bottom: 40px;">Graduate coursework and industry projects spanning delta robotics, gantry safety, pneumatic conveying, multi-platform motion, and distributed I/O. Each project gets its own deep-dive page &mdash; click any card to read the full writeup.</p>
+
     <div class="projects-grid">
 
-      <!-- Truck Powder Unload — most recent -->
-      <div class="proj-card reveal rev-up delay-1">
-        <span class="proj-emoji">🏭</span>
-        <div class="proj-name">Truck Powder Ingredient Unload Station</div>
-        <div class="proj-date">Nov 2025</div>
-        <div class="proj-desc">Complete unit-level control system for pneumatic powder transfer on a CompactLogix 5069-L306ER. Authored 5 PackML sequences (Transfer, Hold, FilterClean, Shutdown, E-Shutdown) with AOI-based device layer for 9 motorized valves, blower, and rotary airlock. Built FactoryTalk View ME HMI with P&amp;ID overview and MSG-based inter-processor destination-tank interlock with a parallel Rail Powder unit.</div>
-        <div class="proj-tags">
-          <span class="p-tag">CompactLogix L306ER</span>
-          <span class="p-tag">Studio 5000</span>
-          <span class="p-tag">FactoryTalk View ME</span>
-          <span class="p-tag">AOI / UDT</span>
-          <span class="p-tag">MSG Blocks</span>
-          <span class="p-tag">PackML</span>
+      <!-- Delta-Bot -->
+      <a class="project delta" href="https://psk-hub.github.io/Delta-Bot/" target="_blank" rel="noopener">
+        <div class="project-body">
+          <div class="project-tag">Multi-Axis Motion</div>
+          <h3 class="project-name">DeltaBot <em>Coordinated</em> Motion</h3>
+          <div class="project-date">Mar 2025 &middot; ControlLogix 1756-L81E</div>
+          <p class="project-desc">7-servo delta parallel robot with Cartesian + kinematic coordinate systems. 10-step MCLM coordinated linear sequence, parametric 8&pi;-radian Archimedean spiral played via parallel MATC time-driven cams, and jerk-tuning sweep from 100 % &rarr; 50 % &rarr; 10 % to characterize the mechanical stress vs. cycle-time trade-off.</p>
+          <div class="project-tags">
+            <span class="ptag">1756-L81E</span>
+            <span class="ptag">Kinetix 5700</span>
+            <span class="ptag">CIP Motion</span>
+            <span class="ptag">PackML</span>
+            <span class="ptag">Structured Text</span>
+          </div>
         </div>
-      </div>
-
-      <!-- Beckhoff -->
-      <div class="proj-card reveal rev-up delay-2">
-        <span class="proj-emoji">📦</span>
-        <div class="proj-name">Beckhoff Cereal Box Filler Control System</div>
-        <div class="proj-date">Oct 2025</div>
-        <div class="proj-desc">Sequential process-control application on Beckhoff CX5140 (TwinCAT 3, IEC 61131-3 LD). Five-step filling sequence with dual TON dwells, single RUN-latch pause/resume preserving step state, and reset-while-stopped logic. Full ADS routing, EtherCAT terminal scanning, and input forcing for online verification on bench hardware.</div>
-        <div class="proj-tags">
-          <span class="p-tag">Beckhoff CX5140</span>
-          <span class="p-tag">TwinCAT 3</span>
-          <span class="p-tag">IEC 61131-3 LD</span>
-          <span class="p-tag">EtherCAT</span>
-          <span class="p-tag">TON Sequencer</span>
+        <div class="project-footer">
+          <span class="project-no">01 / 07</span>
+          <span class="project-link">Read Project <span class="project-arrow">&rarr;</span></span>
         </div>
-      </div>
-
-      <!-- Point IO -->
-      <div class="proj-card reveal rev-up delay-3">
-        <span class="proj-emoji">💡</span>
-        <div class="proj-name">Ethernet/IP Point I/O Stack-Light Sequencer</div>
-        <div class="proj-date">Sep 2025</div>
-        <div class="proj-desc">Configured full EtherNet/IP distributed-I/O subnet in Studio 5000: 1756-L71 ControlLogix + 1756-EN2TR scanner + 1734-AENT/B Point I/O adapter with IB8/C input and OB8/C relay output modules at 20 ms RPI. Programmed cyclic 4-color stack-light sequencer using OTL/OTU state latching, TON timers, and seal-in pause/resume.</div>
-        <div class="proj-tags">
-          <span class="p-tag">ControlLogix 1756-L71</span>
-          <span class="p-tag">1734-AENT Point I/O</span>
-          <span class="p-tag">EtherNet/IP</span>
-          <span class="p-tag">Studio 5000</span>
-          <span class="p-tag">Ladder Logic</span>
-        </div>
-      </div>
-
-      <!-- Simple Motion Control -->
-      <div class="proj-card reveal rev-up delay-1">
-        <span class="proj-emoji">⚡</span>
-        <div class="proj-name">Simple Motion Control — Dual Platform</div>
-        <div class="proj-date">Apr 2025</div>
-        <div class="proj-desc">Identical single-axis PackML motion application on Rockwell (Kinetix 5300, MAM, EtherNet/IP) and Siemens (SINAMICS S120, MC_MoveRelative, PROFINET IRT). Full autotune + manual loop tuning with S-curve vs. trapezoidal comparison on both platforms — cross-platform benchmark of MAM vs. MC_MoveRelative and OTL/OTU vs. S/R coils.</div>
-        <div class="proj-tags">
-          <span class="p-tag">ControlLogix 1756-L71</span>
-          <span class="p-tag">Kinetix 5300</span>
-          <span class="p-tag">S7-1500</span>
-          <span class="p-tag">SINAMICS S120</span>
-          <span class="p-tag">PROFINET IRT</span>
-          <span class="p-tag">Servo Tuning</span>
-        </div>
-      </div>
-
-      <!-- DeltaBot -->
-      <div class="proj-card reveal rev-up delay-2">
-        <span class="proj-emoji">🤖</span>
-        <div class="proj-name">3-Axis DeltaBot Position Control</div>
-        <div class="proj-date">Mar 2025</div>
-        <div class="proj-desc">Delta robot with Cartesian/joint coordinate systems, MCLM coordinated moves, and MATC time-driven spiral cam profiles within a PackML architecture on ControlLogix 1756-L81E. Tuned jerk from 100% → 50% → 10% to optimize mechanical stress vs. cycle-time trade-off across live acceleration computation per step.</div>
-        <div class="proj-tags">
-          <span class="p-tag">ControlLogix 1756-L81E</span>
-          <span class="p-tag">Kinetix 5700</span>
-          <span class="p-tag">EtherNet/IP CIP Motion</span>
-          <span class="p-tag">Studio 5000</span>
-          <span class="p-tag">PackML</span>
-          <span class="p-tag">Structured Text</span>
-        </div>
-      </div>
-
-      <!-- Rotary Knife -->
-      <div class="proj-card reveal rev-up delay-3">
-        <span class="proj-emoji">🔪</span>
-        <div class="proj-name">PLC-Based Rotary Knife Control System</div>
-        <div class="proj-date">Mar 2025</div>
-        <div class="proj-desc">High-precision rotary knife system using Siemens S7-1500 and SINAMICS S120 over PROFINET. Engineered blade synchronization in Ladder Logic and Structured Text; tuned servo parameters and motion profiles for consistent blade-to-material synchronization across variable production speeds.</div>
-        <div class="proj-tags">
-          <span class="p-tag">Siemens S7-1500</span>
-          <span class="p-tag">SINAMICS S120</span>
-          <span class="p-tag">PROFINET</span>
-          <span class="p-tag">Ladder Logic</span>
-          <span class="p-tag">Structured Text</span>
-          <span class="p-tag">Servo Tuning</span>
-        </div>
-      </div>
+      </a>
 
       <!-- Gantry -->
-      <div class="proj-card reveal rev-up delay-1">
-        <span class="proj-emoji">⚙️</span>
-        <div class="proj-name">Gantry Safety &amp; Motion Control System</div>
-        <div class="proj-date">Feb 2025</div>
-        <div class="proj-desc">Dual-axis gantry on Rockwell (Compact GuardLogix 5370 + Kinetix 350) and Siemens (TIA Portal V19 + STEP 7 Safety Advanced) platforms with PackML state machine and MAM S-curve profiling. SIL-rated dual-channel E-stop, light curtain, and Safe Torque Off — full ISO 13849 compliance with zero unplanned safety trips during validation.</div>
-        <div class="proj-tags">
-          <span class="p-tag">GuardLogix 5370</span>
-          <span class="p-tag">Kinetix 350</span>
-          <span class="p-tag">STEP 7 Safety V19</span>
-          <span class="p-tag">Safe Torque Off</span>
-          <span class="p-tag">ISO 13849</span>
-          <span class="p-tag">PackML</span>
+      <a class="project gantry" href="https://psk-hub.github.io/Gantry/" target="_blank" rel="noopener">
+        <div class="project-body">
+          <div class="project-tag">Safety + Motion</div>
+          <h3 class="project-name">Gantry <em>SIL</em> Safety System</h3>
+          <div class="project-date">Feb 2025 &middot; GuardLogix + TIA Safety</div>
+          <p class="project-desc">Two-axis gantry with SIL-rated safety architecture on both Rockwell (GuardLogix 5370 + Kinetix 350) and Siemens (TIA Portal V19 + STEP 7 Safety) platforms. Dual-channel E-stop, light curtain, Safe Torque Off with 500 ms controlled off-delay. Full ISO 13849 compliance, zero unplanned safety trips during validation.</p>
+          <div class="project-tags">
+            <span class="ptag">GuardLogix 5370</span>
+            <span class="ptag">Kinetix 350</span>
+            <span class="ptag">STEP 7 Safety</span>
+            <span class="ptag">STO</span>
+            <span class="ptag">ISO 13849</span>
+          </div>
+        </div>
+        <div class="project-footer">
+          <span class="project-no">02 / 07</span>
+          <span class="project-link">Read Project <span class="project-arrow">&rarr;</span></span>
+        </div>
+      </a>
+
+      <!-- Truck Powder -->
+      <a class="project tpow" href="https://psk-hub.github.io/TPow_Unl/" target="_blank" rel="noopener">
+        <div class="project-body">
+          <div class="project-tag">PackML &middot; HMI</div>
+          <h3 class="project-name">Truck Powder <em>Unload</em></h3>
+          <div class="project-date">Nov 2025 &middot; CompactLogix L306ER</div>
+          <p class="project-desc">Unit-level control system for pneumatic powder transfer. Five PackML sequences (Transfer / Hold / FilterClean / Shutdown / E-Shutdown) with AOI-based device layer for 9 motorized valves, blower, and rotary airlock. FactoryTalk View ME HMI with P&amp;ID overview and MSG-based inter-processor destination-tank interlock with a parallel Rail Powder unit.</p>
+          <div class="project-tags">
+            <span class="ptag">CompactLogix</span>
+            <span class="ptag">Studio 5000</span>
+            <span class="ptag">FT View ME</span>
+            <span class="ptag">AOI / UDT</span>
+            <span class="ptag">MSG Blocks</span>
+          </div>
+        </div>
+        <div class="project-footer">
+          <span class="project-no">03 / 07</span>
+          <span class="project-link">Read Project <span class="project-arrow">&rarr;</span></span>
+        </div>
+      </a>
+
+      <!-- Simple Motion -->
+      <a class="project simple" href="https://psk-hub.github.io/Simple-Motion/" target="_blank" rel="noopener">
+        <div class="project-body">
+          <div class="project-tag">Dual Platform</div>
+          <h3 class="project-name">Simple <em>Motion</em> &mdash; Two Platforms</h3>
+          <div class="project-date">Apr 2025 &middot; Rockwell + Siemens</div>
+          <p class="project-desc">Single-axis PackML motion implemented on two ecosystems. Rockwell 1756-L71 / Kinetix 5300 (100 mm linear, EtherNet/IP) and Siemens S7-1500 / SINAMICS S120 (1000&deg; rotary, PROFINET IRT). Full autotune + manual tuning workflow, cross-platform comparison of MAM vs MC_MoveRelative, OTL/OTU vs S/R coils.</p>
+          <div class="project-tags">
+            <span class="ptag">1756-L71</span>
+            <span class="ptag">Kinetix 5300</span>
+            <span class="ptag">S7-1500</span>
+            <span class="ptag">SINAMICS S120</span>
+            <span class="ptag">PROFINET IRT</span>
+          </div>
+        </div>
+        <div class="project-footer">
+          <span class="project-no">04 / 07</span>
+          <span class="project-link">Read Project <span class="project-arrow">&rarr;</span></span>
+        </div>
+      </a>
+
+      <!-- Beckhoff -->
+      <a class="project beckhoff" href="https://psk-hub.github.io/Beckhoff/" target="_blank" rel="noopener">
+        <div class="project-body">
+          <div class="project-tag">TwinCAT &middot; EtherCAT</div>
+          <h3 class="project-name">Beckhoff <em>Cereal</em> Filler</h3>
+          <div class="project-date">Oct 2025 &middot; CX5140 + TwinCAT 3</div>
+          <p class="project-desc">Sequential process control on Beckhoff CX5140 (TwinCAT 3, IEC 61131-3 LD). Five-step cereal filling: conveyor advance &rarr; 2 s dwell &rarr; fill solenoid &rarr; weight sensor confirm &rarr; 3 s settling. Pause/resume via single RUN latch preserves step state. Full ADS routing, EtherCAT scanning, and input forcing for online bench verification.</p>
+          <div class="project-tags">
+            <span class="ptag">CX5140</span>
+            <span class="ptag">TwinCAT 3</span>
+            <span class="ptag">IEC 61131-3</span>
+            <span class="ptag">EtherCAT</span>
+            <span class="ptag">Secure ADS</span>
+          </div>
+        </div>
+        <div class="project-footer">
+          <span class="project-no">05 / 07</span>
+          <span class="project-link">Read Project <span class="project-arrow">&rarr;</span></span>
+        </div>
+      </a>
+
+      <!-- Point I/O -->
+      <a class="project point" href="https://psk-hub.github.io/Point_IO/" target="_blank" rel="noopener">
+        <div class="project-body">
+          <div class="project-tag">Distributed I/O</div>
+          <h3 class="project-name">Point I/O <em>Stack-Light</em></h3>
+          <div class="project-date">Sep 2025 &middot; 1734-AENT + EN2TR</div>
+          <p class="project-desc">Full EtherNet/IP distributed-I/O configuration: 1756-L71 ControlLogix + 1756-EN2TR scanner + 1734-AENT/B Point I/O adapter (3-slot chassis) with IB8/C input and OB8/C relay output at 20 ms RPI. Six-rung ladder sequencer (Blue &rarr; Green &rarr; Yellow &rarr; Red) using OTL/OTU latching, TON dwell timers, pause/resume via seal-in Run latch.</p>
+          <div class="project-tags">
+            <span class="ptag">1756-L71</span>
+            <span class="ptag">1734-AENT</span>
+            <span class="ptag">EtherNet/IP</span>
+            <span class="ptag">Studio 5000</span>
+            <span class="ptag">CIP</span>
+          </div>
+        </div>
+        <div class="project-footer">
+          <span class="project-no">06 / 07</span>
+          <span class="project-link">Read Project <span class="project-arrow">&rarr;</span></span>
+        </div>
+      </a>
+
+      <!-- Rotary Knife (no link yet — keep but no anchor target) -->
+      <div class="project rotary" style="cursor: default;">
+        <div class="project-body">
+          <div class="project-tag">Synchronized Cutting</div>
+          <h3 class="project-name">Rotary <em>Knife</em> Control</h3>
+          <div class="project-date">Mar 2025 &middot; S7-1500 + SINAMICS S120</div>
+          <p class="project-desc">High-precision rotary knife system on Siemens S7-1500 with SINAMICS S120 drives over PROFINET motion control. Programmed in Ladder Logic and Structured Text to optimize blade synchronization and cut efficiency. Tuned servo parameters and motion profiles to minimize positional error across variable production speeds.</p>
+          <div class="project-tags">
+            <span class="ptag">S7-1500</span>
+            <span class="ptag">SINAMICS S120</span>
+            <span class="ptag">PROFINET</span>
+            <span class="ptag">Ladder Logic</span>
+            <span class="ptag">Servo Tuning</span>
+          </div>
+        </div>
+        <div class="project-footer">
+          <span class="project-no">07 / 07</span>
+          <span class="project-link" style="opacity:0.5;">Writeup Pending</span>
         </div>
       </div>
 
@@ -1130,291 +1285,140 @@ footer span{color:var(--pink)}
   </div>
 </section>
 
-<!-- ══════════════════════════════════════ EDUCATION -->
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num"><span>04</span>Experience</div>
+      <h2 class="section-title">4+ years on the <em>plant floor</em>.</h2>
+    </div>
+
+    <div class="timeline">
+      <div class="job">
+        <div class="job-meta">
+          <div class="job-period">Feb 2026 &mdash; May 2026</div>
+          <div class="job-company">WinWinLabs</div>
+          <div class="job-loc">Plymouth, MI</div>
+        </div>
+        <div>
+          <h3 class="job-title">Quality Assurance &amp; Validation Controls Systems Analyst</h3>
+          <ul class="job-bullets">
+            <li>Develop and execute <strong>system-level V&amp;V test plans</strong> for sensor-based electrical systems &mdash; signal accuracy, reliability, and performance against engineering specifications, analogous to building system performance assessments used in MHE environments.</li>
+            <li>Conduct functional, integration, and performance testing of hardware-software systems; verify signal acquisition integrity and sensor response under varied test conditions &mdash; <strong>100% system compliance</strong> across all test cycles.</li>
+            <li>Serve as <strong>first-level escalation support</strong>: diagnose, troubleshoot, and resolve sensor interface faults and electrical anomalies across 3+ concurrent workstreams; document root cause and corrective actions, maintaining zero unresolved failures.</li>
+            <li>Author and maintain test protocols, validation reports, and troubleshooting references &mdash; full traceability aligned with regulatory compliance requirements.</li>
+            <li>Drive cross-functional collaboration with engineering and development teams to validate system specs, electrical interface requirements, and sensor integration criteria.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="job">
+        <div class="job-meta">
+          <div class="job-period">Oct 2022 &mdash; Dec 2023</div>
+          <div class="job-company">Tata Consulting Engineers</div>
+          <div class="job-loc">India</div>
+        </div>
+        <div>
+          <h3 class="job-title">Automation &amp; Controls Engineer</h3>
+          <ul class="job-bullets">
+            <li>Served as <strong>site controls expert for 8+ manufacturing and MHE systems</strong>: developed, debugged, commissioned, and optimized PLC/PC controller software (Studio 5000, TIA Portal). Programmed automatic modes, sequencing, interlocks, startup/shutdown, recovery, and rework routines &mdash; reduced equipment startup time by <strong>15 %</strong>.</li>
+            <li>Reviewed system-integrator coordination and vendor control system design packages across 8+ commissioning projects; resolved 10&ndash;15 logic discrepancies, spec gaps, and I/O conflicts per engagement before FAT.</li>
+            <li>Designed and deployed <strong>SCADA programs</strong> (FactoryTalk View ME/SE, SIMATIC WinCC) with real-time status monitoring, active alarm management, and manual controls; cut floor-level escalation calls by <strong>30 %</strong>.</li>
+            <li>Diagnosed and resolved communication faults across EtherNet/IP, ControlNet, DeviceNet, and Modbus TCP/IP &mdash; traced dropped connections, misconfigured nodes, and timing conflicts; maintained 100 % network uptime.</li>
+            <li>Commissioned conveyors, sortation, robotic cells, scanners, cameras, and <strong>vision systems</strong> (Cognex/Keyence) into PLC-controlled MHE architectures; implemented product tracing and defect detection logic, improving defect identification speed by 20 %.</li>
+            <li>Commissioned servo drives (Kinetix, SINAMICS S120) with autotune and manual loop tuning across multi-axis systems; led PLC retrofit projects replacing legacy relay panels &mdash; deployed 8+ systems with <strong>zero post-commissioning failures</strong>.</li>
+            <li>Leveraged FactoryTalk Historian to surface recurring faults and process drift; drove targeted PLC logic changes and PM schedule improvements to maximize cycle time, availability, and yield.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="job">
+        <div class="job-meta">
+          <div class="job-period">Feb 2020 &mdash; Nov 2020</div>
+          <div class="job-company">Dr. Narla Tata Rao Thermal Power Station</div>
+          <div class="job-loc">India</div>
+        </div>
+        <div>
+          <h3 class="job-title">Process Control Intern</h3>
+          <ul class="job-bullets">
+            <li>Monitored MHE metrics; optimized and troubleshot <strong>Siemens S7-1200 TIA Portal ladder logic</strong> for coal handling conveyors &mdash; reduced conveyor downtime by <strong>12 %</strong>.</li>
+            <li>Monitored and verified interlock/permissive logic for process-critical industrial equipment against design documentation &mdash; compliance checks analogous to IQ/OQ/PQ protocols, <strong>100 % ISO compliance</strong> with zero safety incidents.</li>
+            <li>Maintained PROFINET, PROFIBUS, and Modbus TCP/IP communication links between PLCs, SCADA/HMI, and electrical distribution; performed routine fieldbus fault diagnosis preventing unplanned downtime.</li>
+            <li>Provided first-level escalation support for site technicians: implemented controlled PLC logic modifications in TIA Portal (LD and FBD); all changes passed formal review.</li>
+            <li>Contributed to control-loop analysis using RGA and SVD methods in MATLAB and Octave &mdash; evaluated sensor placement and loop pairing.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
 <section id="education">
   <div class="container">
-    <div class="reveal rev-up">
-      <div class="sec-label">Academic Background</div>
-      <h2 class="sec-title">Education &amp; Certifications</h2>
+    <div class="section-header">
+      <div class="section-num"><span>05</span>Education</div>
+      <h2 class="section-title">Engineering, <em>cum laude</em>.</h2>
     </div>
 
     <div class="edu-grid">
-      <div class="edu-card reveal rev-left delay-1">
-        <div class="edu-badge">🎓</div>
-        <div class="edu-deg">Master of Science — Electrical Engineering</div>
+      <div class="edu-card">
+        <div class="edu-degree">Master of Science &mdash; Electrical Engineering</div>
         <div class="edu-school">Missouri University of Science and Technology</div>
-        <div class="edu-meta">Rolla, MO &nbsp;·&nbsp; Jan 2024 – Dec 2025</div>
+        <div class="edu-period">Jan 2024 &mdash; Dec 2025 &middot; Rolla, MO</div>
         <span class="edu-gpa">GPA: 3.5 / 4.0</span>
       </div>
-      <div class="edu-card reveal rev-right delay-2">
-        <div class="edu-badge">🏛️</div>
-        <div class="edu-deg">Bachelor of Science — Electrical &amp; Electronics Engineering</div>
+      <div class="edu-card">
+        <div class="edu-degree">Bachelor of Science &mdash; Electrical &amp; Electronics Engineering</div>
         <div class="edu-school">PVP Siddhartha Institute of Technology</div>
-        <div class="edu-meta">Vijayawada, India &nbsp;·&nbsp; Aug 2019 – May 2023</div>
+        <div class="edu-period">Aug 2019 &mdash; May 2023 &middot; Vijayawada, India</div>
         <span class="edu-gpa">GPA: 3.6 / 4.0</span>
       </div>
     </div>
 
-    <div class="cert-card reveal rev-left delay-1">
-      <div class="cert-icon">📜</div>
-      <div>
-        <div class="cert-name">Basic Programmable Logic Controller (PLC) Course</div>
-        <div class="cert-org">Dr. Kelvin Todd Erickson · Missouri University of Science and Technology</div>
-      </div>
-      <div class="cert-date">Jul 2024</div>
+    <div class="cert">
+      <div class="cert-name">Basic Programmable Logic Controller (PLC) Course</div>
+      <div class="cert-meta">Dr. Kelvin Todd Erickson &middot; Missouri University of Science and Technology &middot; Jul 2024</div>
     </div>
-
-    <div class="lang-head reveal rev-up">Language Proficiency</div>
-    <div class="lang-badges reveal rev-up delay-1">
-      <div class="lang-badge"><span class="lang-flag">🇺🇸</span><span class="lang-name">English</span><span class="lang-lvl">Professional Proficiency</span></div>
-      <div class="lang-badge"><span class="lang-flag">🇮🇳</span><span class="lang-name">Telugu</span><span class="lang-lvl">Native</span></div>
-      <div class="lang-badge"><span class="lang-flag">🇮🇳</span><span class="lang-name">Hindi</span><span class="lang-lvl">Working Knowledge</span></div>
-    </div>
-
   </div>
 </section>
 
-<!-- ══════════════════════════════════════ CONTACT -->
-<section id="contact">
+<!-- CONTACT -->
+<section id="contact" style="border-bottom: none;">
   <div class="container">
-    <div class="reveal rev-up">
-      <div class="sec-label">Let's Connect</div>
-      <h2 class="sec-title">Get In Touch</h2>
-      <p class="sec-sub">Open to full-time Controls &amp; Automation Engineering opportunities. Let's build something reliable together.</p>
+    <div class="section-header">
+      <div class="section-num"><span>06</span>Contact</div>
+      <h2 class="section-title">Let's <em>work</em> together.</h2>
     </div>
+    <p class="section-sub" style="margin-bottom: 32px;">Open to controls and automation engineering roles, MHE commissioning, and PLC/SCADA integration work. Currently based in Maryville, MO and open to relocation.</p>
+
     <div class="contact-grid">
-      <div class="c-items">
-        <a href="mailto:phanisundarkoka@gmail.com" class="c-item reveal rev-left delay-1">
-          <div class="c-ico ci-cyan">✉️</div>
-          <div><div class="c-lbl">Email</div><div class="c-val">phanisundarkoka@gmail.com</div></div>
-        </a>
-        <a href="tel:+15735371288" class="c-item reveal rev-left delay-2">
-          <div class="c-ico ci-pink">📞</div>
-          <div><div class="c-lbl">Phone</div><div class="c-val">+1 (573) 537-1288</div></div>
-        </a>
-        <div class="c-item reveal rev-left delay-3">
-          <div class="c-ico ci-indigo">📍</div>
-          <div><div class="c-lbl">Location</div><div class="c-val">Maryville, MO</div></div>
-        </div>
-        <a href="https://linkedin.com/in/pkoka17" target="_blank" rel="noopener" class="c-item reveal rev-left delay-4">
-          <div class="c-ico ci-amber">🔗</div>
-          <div><div class="c-lbl">LinkedIn</div><div class="c-val">linkedin.com/in/pkoka17</div></div>
-        </a>
-        <div class="c-item reveal rev-left delay-5">
-          <div class="c-ico ci-teal" style="background:rgba(20,184,166,.15)">✅</div>
-          <div><div class="c-lbl">Status</div><div class="c-val">Currently at WinWinLabs · Open to Opportunities</div></div>
-        </div>
-      </div>
-      <div class="contact-right reveal rev-right">
-        <div class="contact-avatar-wrap">
-          <div class="ripple-ring r1"></div>
-          <div class="ripple-ring r2"></div>
-          <div class="ripple-ring r3"></div>
-          <div class="contact-avatar">PSK</div>
-        </div>
-      </div>
+      <a class="contact-method" href="mailto:phanisundarkoka@gmail.com">
+        <div class="contact-label">Email</div>
+        <div class="contact-value">phanisundarkoka@gmail.com</div>
+      </a>
+      <a class="contact-method" href="tel:+15735371288">
+        <div class="contact-label">Phone</div>
+        <div class="contact-value">+1 (573) 537-1288</div>
+      </a>
+      <a class="contact-method" href="https://linkedin.com/in/pkoka17" target="_blank" rel="noopener">
+        <div class="contact-label">LinkedIn</div>
+        <div class="contact-value">linkedin.com/in/pkoka17</div>
+      </a>
+      <a class="contact-method" href="https://psk-hub.github.io/" target="_blank" rel="noopener">
+        <div class="contact-label">Portfolio Hub</div>
+        <div class="contact-value">psk-hub.github.io</div>
+      </a>
     </div>
   </div>
 </section>
 
-<!-- ══════════════════════════════════════ FOOTER -->
 <footer>
-  <p>Designed &amp; built by <span>Phani Sundar Koka</span> &nbsp;·&nbsp; Controls &amp; Automation Engineer &nbsp;·&nbsp; <a href="mailto:phanisundarkoka@gmail.com">phanisundarkoka@gmail.com</a></p>
+  <div class="container">
+    <div>&copy; 2026 Phani Sundar Koka &middot; Controls &amp; Automation Engineer</div>
+    <div>Built with <span style="color:var(--primary);">precision</span> &middot; <a href="#hero">Back to top</a></div>
+  </div>
 </footer>
 
-<!-- ══════════════════════════════════════════════
-     JAVASCRIPT
-══════════════════════════════════════════════ -->
-<script>
-/* ─── 1. LOADER ─────────────────────────────── */
-window.addEventListener('load', () => {
-  setTimeout(() => {
-    document.getElementById('loader').classList.add('fade-out');
-  }, 2200);
-});
-
-/* ─── 2. PARTICLE CANVAS ────────────────────── */
-(function(){
-  const canvas = document.getElementById('particle-canvas');
-  const ctx = canvas.getContext('2d');
-  const COLORS = ['#06b6d4','#6366f1','#ec4899','#f59e0b','#06b6d4','#6366f1'];
-  let particles = [];
-  let W, H;
-
-  function resize(){
-    W = canvas.width = window.innerWidth;
-    H = canvas.height = window.innerHeight;
-  }
-  resize();
-  window.addEventListener('resize', resize);
-
-  class Particle {
-    constructor(){
-      this.reset();
-    }
-    reset(){
-      this.x = Math.random() * W;
-      this.y = Math.random() * H;
-      this.vx = (Math.random() - 0.5) * 0.55;
-      this.vy = (Math.random() - 0.5) * 0.55;
-      this.r = Math.random() * 1.8 + 0.6;
-      this.color = COLORS[Math.floor(Math.random() * COLORS.length)];
-      this.alpha = Math.random() * 0.5 + 0.3;
-    }
-    update(){
-      this.x += this.vx;
-      this.y += this.vy;
-      if(this.x < 0 || this.x > W) this.vx *= -1;
-      if(this.y < 0 || this.y > H) this.vy *= -1;
-    }
-    draw(){
-      ctx.save();
-      ctx.globalAlpha = this.alpha;
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.r, 0, Math.PI*2);
-      ctx.fillStyle = this.color;
-      ctx.shadowBlur = 8;
-      ctx.shadowColor = this.color;
-      ctx.fill();
-      ctx.restore();
-    }
-  }
-
-  const COUNT = Math.min(100, Math.floor(W * H / 12000));
-  for(let i = 0; i < COUNT; i++) particles.push(new Particle());
-
-  function connect(){
-    const MAX = 130;
-    for(let i = 0; i < particles.length; i++){
-      for(let j = i+1; j < particles.length; j++){
-        const dx = particles[i].x - particles[j].x;
-        const dy = particles[i].y - particles[j].y;
-        const d = Math.sqrt(dx*dx + dy*dy);
-        if(d < MAX){
-          const alpha = (1 - d/MAX) * 0.2;
-          ctx.save();
-          ctx.globalAlpha = alpha;
-          ctx.strokeStyle = '#6366f1';
-          ctx.lineWidth = 0.6;
-          ctx.beginPath();
-          ctx.moveTo(particles[i].x, particles[i].y);
-          ctx.lineTo(particles[j].x, particles[j].y);
-          ctx.stroke();
-          ctx.restore();
-        }
-      }
-    }
-  }
-
-  function loop(){
-    ctx.clearRect(0, 0, W, H);
-    particles.forEach(p => { p.update(); p.draw(); });
-    connect();
-    requestAnimationFrame(loop);
-  }
-  loop();
-})();
-
-/* ─── 3. CUSTOM CURSOR ──────────────────────── */
-(function(){
-  // skip on touch / mobile devices — they have no hover
-  if(window.matchMedia('(hover: none)').matches) return;
-  const dot  = document.getElementById('cursor-dot');
-  const ring = document.getElementById('cursor-ring');
-  let rx = 0, ry = 0, mx = 0, my = 0;
-
-  document.addEventListener('mousemove', e => {
-    mx = e.clientX; my = e.clientY;
-    dot.style.left = mx + 'px';
-    dot.style.top  = my + 'px';
-  });
-
-  function animRing(){
-    rx += (mx - rx) * 0.12;
-    ry += (my - ry) * 0.12;
-    ring.style.left = rx + 'px';
-    ring.style.top  = ry + 'px';
-    requestAnimationFrame(animRing);
-  }
-  animRing();
-
-  document.querySelectorAll('a, button, .proj-card, .c-item, .t-chip, .edu-card, .cert-card').forEach(el => {
-    el.addEventListener('mouseenter', () => ring.classList.add('big'));
-    el.addEventListener('mouseleave', () => ring.classList.remove('big'));
-  });
-})();
-
-/* ─── 4. SCROLL REVEAL ──────────────────────── */
-(function(){
-  const els = document.querySelectorAll('.reveal');
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); }
-    });
-  }, { threshold: 0.12 });
-  els.forEach(el => io.observe(el));
-})();
-
-/* ─── 5. SKILL BARS ─────────────────────────── */
-(function(){
-  const fills = document.querySelectorAll('.skill-fill');
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if(e.isIntersecting){
-        const pct = e.target.getAttribute('data-pct');
-        e.target.style.width = pct + '%';
-        io.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.4 });
-  fills.forEach(f => io.observe(f));
-})();
-
-/* ─── 6. NAVBAR HIDE/SHOW ───────────────────── */
-(function(){
-  let lastY = 0;
-  const nav = document.getElementById('navbar');
-  window.addEventListener('scroll', () => {
-    const y = window.scrollY;
-    if(y > lastY && y > 100){
-      nav.style.transform = 'translateY(-110%)';
-    } else {
-      nav.style.transform = 'translateY(0)';
-    }
-    lastY = y;
-  });
-})();
-
-/* ─── 7. MOBILE MENU ────────────────────────── */
-(function(){
-  const ham   = document.getElementById('navHam');
-  const links = document.querySelector('.nav-links');
-  if(!ham) return;
-  function close(){ links.classList.remove('mobile-open'); ham.innerHTML='&#9776;'; }
-  function open(){  links.classList.add('mobile-open');    ham.innerHTML='&#10005;'; }
-  ham.addEventListener('click', () => {
-    links.classList.contains('mobile-open') ? close() : open();
-  });
-  // Close when a link is tapped
-  document.querySelectorAll('.nav-links a').forEach(a => {
-    a.addEventListener('click', () => close());
-  });
-  // Close when tapping outside
-  document.addEventListener('click', e => {
-    if(!ham.contains(e.target) && !links.contains(e.target)) close();
-  });
-})();
-
-/* ─── 8. SMOOTH COUNTER for hero card ──────── */
-(function(){
-  // small twinkle effect on stat numbers on page load
-  const nums = document.querySelectorAll('.c-stat-n');
-  nums.forEach((n, i) => {
-    n.style.transition = `opacity .4s ease ${i * 0.2 + 0.5}s`;
-    n.style.opacity = '0';
-    setTimeout(() => { n.style.opacity = '1'; }, (i * 200) + 2600);
-  });
-})();
-</script>
 </body>
 </html>
