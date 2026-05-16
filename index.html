@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Phani Sundar Koka — Controls &amp; Automation Engineer</title>
-<meta name="description" content="Controls and Automation Engineer specializing in PLC/SCADA, MHE systems, and multi-platform motion control across Rockwell, Siemens, and Beckhoff ecosystems.">
+<meta name="description" content="Controls and Automation Engineer specializing in PLC/SCADA, MHE commissioning, and multi-platform motion control across Rockwell, Siemens, and Beckhoff ecosystems.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,800&display=swap" rel="stylesheet">
@@ -18,15 +18,14 @@
     --ink-dim: #8a8e98;
     --ink-low: #555964;
 
-    /* Family color palette - each accent matches a project page */
-    --primary: #ffb300;        /* portfolio accent */
+    --primary: #ffb300;
     --primary-glow: rgba(255, 179, 0, 0.18);
-    --amber: #f5a623;          /* TPow_Unl */
-    --beckhoff: #ce0e2d;       /* Beckhoff */
-    --cip: #00b3a4;            /* Point I/O */
-    --delta: #9b6cff;          /* Delta-Bot */
-    --packml: #ffaa00;         /* Simple Motion */
-    --safety: #ffcc00;         /* Gantry */
+    --amber: #f5a623;
+    --beckhoff: #ce0e2d;
+    --cip: #00b3a4;
+    --delta: #9b6cff;
+    --packml: #ffaa00;
+    --safety: #ffcc00;
     --siemens: #009999;
     --rockwell: #cc0000;
     --green: #34c759;
@@ -63,7 +62,6 @@
     z-index: 0;
   }
 
-  /* Status bar */
   .statusbar {
     position: sticky;
     top: 0;
@@ -232,7 +230,6 @@
     font-weight: 500;
   }
 
-  /* Hero schematic - composite of the 7 project domains */
   .hero-schematic {
     background: var(--panel);
     border: 1px solid var(--line);
@@ -240,7 +237,7 @@
     position: relative;
   }
   .hero-schematic::before {
-    content: 'CONTROLS PORTFOLIO';
+    content: 'PROJECT PORTFOLIO';
     position: absolute;
     top: -1px;
     right: 20px;
@@ -261,7 +258,7 @@
   }
   .hero-schematic svg { width: 100%; height: auto; display: block; }
 
-  /* Marquee strip */
+  /* Marquee */
   .marquee {
     overflow: hidden;
     border-top: 1px solid var(--line);
@@ -291,7 +288,6 @@
     100% { transform: translateX(-50%); }
   }
 
-  /* SECTIONS */
   section {
     padding: 90px 0;
     border-bottom: 1px solid var(--line);
@@ -366,7 +362,7 @@
   .stat:hover { border-left-color: var(--primary); }
   .stat-num {
     font-family: var(--serif);
-    font-size: 38px;
+    font-size: 32px;
     font-weight: 400;
     color: var(--primary);
     line-height: 1;
@@ -379,7 +375,6 @@
     line-height: 1.5;
   }
 
-  /* SKILLS - grouped */
   .skills-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -427,7 +422,6 @@
     color: var(--primary);
   }
 
-  /* EXPERIENCE - timeline */
   .timeline {
     display: flex;
     flex-direction: column;
@@ -507,7 +501,7 @@
     font-weight: 600;
   }
 
-  /* PROJECTS - the centerpiece */
+  /* PROJECTS */
   .projects-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -627,7 +621,6 @@
     letter-spacing: 0.1em;
   }
 
-  /* Custom accent colors per project */
   .project.delta { --accent: var(--delta); }
   .project.gantry { --accent: var(--safety); }
   .project.tpow { --accent: var(--amber); }
@@ -636,7 +629,6 @@
   .project.point { --accent: var(--cip); }
   .project.rotary { --accent: var(--siemens); }
 
-  /* Education */
   .edu-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -698,7 +690,6 @@
     letter-spacing: 0.1em;
   }
 
-  /* Contact */
   .contact-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -731,7 +722,6 @@
     word-break: break-all;
   }
 
-  /* Footer */
   footer {
     padding: 50px 0 40px;
     border-top: 1px solid var(--line);
@@ -753,7 +743,6 @@
   }
   footer a:hover { color: var(--primary); }
 
-  /* Responsive */
   @media (max-width: 1000px) {
     .projects-grid { grid-template-columns: repeat(2, 1fr); }
   }
@@ -787,7 +776,7 @@
 
 <div class="statusbar">
   <div class="left">
-    <span><span class="led"></span>AVAILABLE FOR HIRE</span>
+    <span><span class="led"></span>OPEN TO OPPORTUNITIES</span>
     <span class="hide-mobile">Maryville, MO &middot; Open to relocation</span>
   </div>
   <div class="right">
@@ -801,16 +790,17 @@
   <div class="container">
     <div class="hero-grid">
       <div>
-        <div class="hero-tag fade fade-1">Controls &middot; Automation &middot; MHE Systems</div>
+        <div class="hero-tag fade fade-1">Controls &middot; Automation &middot; MHE Commissioning</div>
         <h1 class="fade fade-2">Phani Sundar <em style="font-style:italic; color:var(--primary); font-weight:300;">Koka</em></h1>
         <div class="subtitle fade fade-2">PLC, motion control &amp; SCADA across three vendor ecosystems.</div>
         <p class="hero-sub fade fade-3">
-          Controls and Automation Engineer with <strong>4+ years</strong> of hands-on experience
-          commissioning material handling, manufacturing, and power generation systems. Fluent
-          across <strong>Rockwell ControlLogix / GuardLogix</strong>,
-          <strong>Siemens S7-1500 / TIA Portal</strong>, and <strong>Beckhoff TwinCAT 3</strong>
-          &mdash; from servo tuning and CIP Motion to SIL-rated safety integration and FactoryTalk
-          SCADA design. M.S. Electrical Engineering, Missouri S&amp;T.
+          Controls and Automation Engineer with hands-on integrator commissioning experience on
+          MHE and manufacturing systems. Fluent across
+          <strong>Rockwell ControlLogix / GuardLogix</strong>,
+          <strong>Siemens S7-1500 / TIA Portal</strong>, and
+          <strong>Beckhoff TwinCAT 3</strong> &mdash; from servo tuning and CIP Motion
+          to SIL-rated safety integration and FactoryTalk SCADA design. M.S. Electrical
+          Engineering, Missouri S&amp;T (Dec 2025).
         </p>
         <div class="cta-row fade fade-4">
           <a href="#projects" class="cta primary">View Projects &rarr;</a>
@@ -819,12 +809,12 @@
         </div>
         <div class="hero-meta">
           <div class="meta-cell">
-            <div class="meta-label">Experience</div>
-            <div class="meta-value">4+ years</div>
+            <div class="meta-label">Focus</div>
+            <div class="meta-value">MHE Commissioning</div>
           </div>
           <div class="meta-cell">
-            <div class="meta-label">Systems</div>
-            <div class="meta-value">8+ commissioned</div>
+            <div class="meta-label">Projects</div>
+            <div class="meta-value">7 deep dives</div>
           </div>
           <div class="meta-cell">
             <div class="meta-label">Platforms</div>
@@ -837,11 +827,9 @@
         </div>
       </div>
 
-      <!-- Composite schematic representing the seven project domains -->
       <div class="hero-schematic fade fade-3">
         <div class="hero-schematic-title">DOMAINS / SEVEN PROJECTS</div>
         <svg viewBox="0 0 380 440" xmlns="http://www.w3.org/2000/svg">
-          <!-- Central controller node -->
           <g>
             <rect x="140" y="190" width="100" height="60" fill="#1c2127" stroke="#ffb300" stroke-width="1.5"/>
             <rect x="140" y="190" width="100" height="16" fill="#ffb300"/>
@@ -849,65 +837,48 @@
             <text x="190" y="222" fill="#e8eaf0" font-family="JetBrains Mono" font-size="9" text-anchor="middle">CONTROLLER</text>
             <text x="190" y="238" fill="#8a8e98" font-family="JetBrains Mono" font-size="6" text-anchor="middle">AB &middot; Siemens &middot; Beckhoff</text>
           </g>
-
-          <!-- 7 domain nodes radiating outward -->
-          <!-- Top: Delta-Bot (violet) -->
           <g>
             <line x1="190" y1="190" x2="190" y2="80" stroke="#9b6cff" stroke-width="1" stroke-dasharray="3,2" opacity="0.6"/>
             <circle cx="190" cy="70" r="22" fill="#1c2127" stroke="#9b6cff" stroke-width="1.5"/>
             <text x="190" y="68" fill="#9b6cff" font-family="JetBrains Mono" font-size="7" text-anchor="middle" font-weight="700">DELTA</text>
             <text x="190" y="78" fill="#8a8e98" font-family="JetBrains Mono" font-size="5" text-anchor="middle">7 servos</text>
           </g>
-
-          <!-- Top-right: Gantry (safety yellow) -->
           <g>
             <line x1="240" y1="200" x2="320" y2="120" stroke="#ffcc00" stroke-width="1" stroke-dasharray="3,2" opacity="0.6"/>
             <circle cx="332" cy="108" r="22" fill="#1c2127" stroke="#ffcc00" stroke-width="1.5"/>
             <text x="332" y="106" fill="#ffcc00" font-family="JetBrains Mono" font-size="7" text-anchor="middle" font-weight="700">GANTRY</text>
             <text x="332" y="116" fill="#8a8e98" font-family="JetBrains Mono" font-size="5" text-anchor="middle">SIL safety</text>
           </g>
-
-          <!-- Right: TPow Unload (amber) -->
           <g>
             <line x1="240" y1="220" x2="335" y2="220" stroke="#f5a623" stroke-width="1" stroke-dasharray="3,2" opacity="0.6"/>
             <circle cx="348" cy="220" r="22" fill="#1c2127" stroke="#f5a623" stroke-width="1.5"/>
             <text x="348" y="218" fill="#f5a623" font-family="JetBrains Mono" font-size="7" text-anchor="middle" font-weight="700">TPOW</text>
             <text x="348" y="228" fill="#8a8e98" font-family="JetBrains Mono" font-size="5" text-anchor="middle">pneumatic</text>
           </g>
-
-          <!-- Bottom-right: Simple Motion (packml amber) -->
           <g>
             <line x1="240" y1="240" x2="320" y2="320" stroke="#ffaa00" stroke-width="1" stroke-dasharray="3,2" opacity="0.6"/>
             <circle cx="332" cy="332" r="22" fill="#1c2127" stroke="#ffaa00" stroke-width="1.5"/>
             <text x="332" y="328" fill="#ffaa00" font-family="JetBrains Mono" font-size="6" text-anchor="middle" font-weight="700">SIMPLE</text>
             <text x="332" y="338" fill="#8a8e98" font-family="JetBrains Mono" font-size="5" text-anchor="middle">dual-vendor</text>
           </g>
-
-          <!-- Bottom: Beckhoff (red) -->
           <g>
             <line x1="190" y1="250" x2="190" y2="360" stroke="#ce0e2d" stroke-width="1" stroke-dasharray="3,2" opacity="0.6"/>
             <circle cx="190" cy="372" r="22" fill="#1c2127" stroke="#ce0e2d" stroke-width="1.5"/>
             <text x="190" y="370" fill="#ce0e2d" font-family="JetBrains Mono" font-size="6" text-anchor="middle" font-weight="700">BECKHOFF</text>
             <text x="190" y="380" fill="#8a8e98" font-family="JetBrains Mono" font-size="5" text-anchor="middle">EtherCAT</text>
           </g>
-
-          <!-- Bottom-left: Point I/O (cip teal) -->
           <g>
             <line x1="140" y1="240" x2="60" y2="320" stroke="#00b3a4" stroke-width="1" stroke-dasharray="3,2" opacity="0.6"/>
             <circle cx="48" cy="332" r="22" fill="#1c2127" stroke="#00b3a4" stroke-width="1.5"/>
             <text x="48" y="328" fill="#00b3a4" font-family="JetBrains Mono" font-size="6" text-anchor="middle" font-weight="700">POINT</text>
             <text x="48" y="338" fill="#8a8e98" font-family="JetBrains Mono" font-size="5" text-anchor="middle">distributed</text>
           </g>
-
-          <!-- Top-left: Rotary Knife (siemens teal) -->
           <g>
             <line x1="140" y1="200" x2="60" y2="120" stroke="#009999" stroke-width="1" stroke-dasharray="3,2" opacity="0.6"/>
             <circle cx="48" cy="108" r="22" fill="#1c2127" stroke="#009999" stroke-width="1.5"/>
             <text x="48" y="106" fill="#009999" font-family="JetBrains Mono" font-size="7" text-anchor="middle" font-weight="700">ROTARY</text>
             <text x="48" y="116" fill="#8a8e98" font-family="JetBrains Mono" font-size="5" text-anchor="middle">S120 sync</text>
           </g>
-
-          <!-- Bottom legend strip -->
           <g transform="translate(20, 408)">
             <rect x="0" y="0" width="340" height="22" fill="none" stroke="#2a2f38"/>
             <text x="170" y="14" fill="#8a8e98" font-family="JetBrains Mono" font-size="8" text-anchor="middle">PackML &middot; CIP Motion &middot; SIL Safety &middot; SCADA</text>
@@ -918,7 +889,6 @@
   </div>
 </section>
 
-<!-- Marquee -->
 <div class="marquee">
   <div class="marquee-track">
     <div class="marquee-item">Studio 5000<span class="dot">&middot;</span></div>
@@ -930,8 +900,7 @@
     <div class="marquee-item">Ignition SCADA<span class="dot">&middot;</span></div>
     <div class="marquee-item">PackML<span class="dot">&middot;</span></div>
     <div class="marquee-item">SIL Safety<span class="dot">&middot;</span></div>
-    <div class="marquee-item">Cognex Vision<span class="dot">&middot;</span></div>
-    <!-- duplicate for seamless scroll -->
+    <div class="marquee-item">EtherCAT<span class="dot">&middot;</span></div>
     <div class="marquee-item">Studio 5000<span class="dot">&middot;</span></div>
     <div class="marquee-item">TIA Portal V19<span class="dot">&middot;</span></div>
     <div class="marquee-item">TwinCAT 3<span class="dot">&middot;</span></div>
@@ -941,7 +910,7 @@
     <div class="marquee-item">Ignition SCADA<span class="dot">&middot;</span></div>
     <div class="marquee-item">PackML<span class="dot">&middot;</span></div>
     <div class="marquee-item">SIL Safety<span class="dot">&middot;</span></div>
-    <div class="marquee-item">Cognex Vision<span class="dot">&middot;</span></div>
+    <div class="marquee-item">EtherCAT<span class="dot">&middot;</span></div>
   </div>
 </div>
 
@@ -950,48 +919,51 @@
   <div class="container">
     <div class="section-header">
       <div class="section-num"><span>01</span>Profile</div>
-      <h2 class="section-title">The fluency every <em>plant floor</em> needs.</h2>
+      <h2 class="section-title">Cross-platform <em>controls fluency</em>.</h2>
     </div>
 
     <div class="about-grid">
       <div class="about-prose">
         <p>
-          Controls and Automation Engineer with <strong>4+ years of hands-on experience</strong>
-          maximizing equipment reliability and operational performance across manufacturing,
-          material handling, and power generation environments. Expert in PLC/PC controller
-          programming and troubleshooting &mdash; Allen-Bradley CompactLogix/ControlLogix (Studio
-          5000 / RSLogix 5000), Siemens S7-1200/S7-1500 (TIA Portal), and Beckhoff CX5140
-          (TwinCAT 3) &mdash; with deep expertise in SCADA programs (Ignition, FactoryTalk View
-          ME/SE, SIMATIC WinCC), industrial networking (EtherNet/IP, PROFINET, ControlNet,
-          DeviceNet), and motor control including servo drives and VFDs.
+          Controls and Automation Engineer with <strong>hands-on integrator commissioning
+          experience</strong> on manufacturing and material handling systems. Proficient in
+          PLC/PC controller programming and troubleshooting across <strong>Allen-Bradley
+          CompactLogix/ControlLogix</strong> (Studio 5000), <strong>Siemens S7-1200/S7-1500</strong>
+          (TIA Portal), and <strong>Beckhoff CX5140</strong> (TwinCAT 3) &mdash; with practical
+          experience in SCADA design (FactoryTalk View ME/SE, SIMATIC WinCC), industrial
+          networking (EtherNet/IP, PROFINET, ControlNet, DeviceNet), and motor control across
+          servo drives and VFDs.
         </p>
         <p>
-          Delivered <strong>8+ commissioned MHE systems</strong> &mdash; conveyors, sortation,
-          robotic cells, scanners, cameras, and vision systems (Cognex, Keyence) &mdash; with
-          zero post-commissioning failures and experience supporting FAT/SAT/IQ/OQ/PQ
-          validation-style testing protocols in GMP-adjacent regulated environments. Measured
-          results: <strong>15% reduction</strong> in equipment startup time, <strong>30%
-          reduction</strong> in HMI escalation calls, and <strong>12% reduction</strong> in
-          conveyor downtime across deployed systems.
+          Commissioned manufacturing and MHE retrofit systems at <strong>Tata Consulting
+          Engineers</strong> &mdash; design review through operator handover with zero
+          post-commissioning failures on systems owned end-to-end. Deep hands-on coursework
+          at Missouri S&amp;T across motion control, PackML state architecture, IEC 61131-3
+          structured function blocks, and multi-platform commissioning workflow.
+        </p>
+        <p>
+          Seeking on-site MHE commissioning and systems integration work at scale &mdash;
+          where the intersection of PLC logic, industrial networking, motion control, and
+          operator-facing HMIs lives.
         </p>
       </div>
 
       <div class="stat-grid">
         <div class="stat">
-          <div class="stat-num">15%</div>
-          <div class="stat-label">Reduction in equipment startup time</div>
+          <div class="stat-num">3</div>
+          <div class="stat-label">PLC ecosystems: Rockwell, Siemens, Beckhoff</div>
         </div>
         <div class="stat">
-          <div class="stat-num">30%</div>
-          <div class="stat-label">Cut in HMI escalation calls</div>
+          <div class="stat-num">7</div>
+          <div class="stat-label">Engineering project deep-dives</div>
         </div>
         <div class="stat">
-          <div class="stat-num">12%</div>
-          <div class="stat-label">Reduction in conveyor downtime</div>
+          <div class="stat-num">M.S.</div>
+          <div class="stat-label">Electrical Engineering, Missouri S&amp;T</div>
         </div>
         <div class="stat">
-          <div class="stat-num">8+</div>
-          <div class="stat-label">Commissioned MHE systems, zero failures</div>
+          <div class="stat-num">0</div>
+          <div class="stat-label">Post-commissioning failures on systems owned end-to-end</div>
         </div>
       </div>
     </div>
@@ -1033,12 +1005,12 @@
         <div class="skill-icon">02 / Interface</div>
         <h3>SCADA &amp; HMI</h3>
         <div class="skill-tags">
-          <span class="skill-tag">Ignition SCADA</span>
           <span class="skill-tag">FactoryTalk View ME/SE</span>
           <span class="skill-tag">FactoryTalk Optix</span>
           <span class="skill-tag">FactoryTalk Historian</span>
           <span class="skill-tag">SIMATIC WinCC</span>
           <span class="skill-tag">TwinCAT HMI</span>
+          <span class="skill-tag">Ignition SCADA (exposure)</span>
           <span class="skill-tag">Alarm Management</span>
           <span class="skill-tag">Real-Time Monitoring</span>
           <span class="skill-tag">Operator Interface Design</span>
@@ -1055,6 +1027,7 @@
           <span class="skill-tag">PROFINET IRT</span>
           <span class="skill-tag">PROFIBUS</span>
           <span class="skill-tag">Modbus TCP/RTU</span>
+          <span class="skill-tag">EtherCAT</span>
           <span class="skill-tag">CIP</span>
           <span class="skill-tag">CIP Safety</span>
           <span class="skill-tag">Remote I/O</span>
@@ -1067,7 +1040,7 @@
         <div class="skill-icon">04 / Motion</div>
         <h3>Drives &amp; Servo</h3>
         <div class="skill-tags">
-          <span class="skill-tag">Kinetix 350/5500/5700</span>
+          <span class="skill-tag">Kinetix 5300/5500</span>
           <span class="skill-tag">SINAMICS S120</span>
           <span class="skill-tag">PowerFlex VFDs</span>
           <span class="skill-tag">Multi-Axis CIP Motion</span>
@@ -1075,26 +1048,23 @@
           <span class="skill-tag">MAM / MCLM / MATC</span>
           <span class="skill-tag">PID / Servo Tuning</span>
           <span class="skill-tag">Motor Starters</span>
-          <span class="skill-tag">DC Drives</span>
           <span class="skill-tag">Autotune</span>
         </div>
       </div>
 
       <div class="skill-group">
-        <div class="skill-icon">05 / MHE &amp; Vision</div>
+        <div class="skill-icon">05 / MHE &amp; Integration</div>
         <h3>Material Handling</h3>
         <div class="skill-tags">
           <span class="skill-tag">Conveyors</span>
           <span class="skill-tag">Sortation Systems</span>
           <span class="skill-tag">Robotic Cells</span>
           <span class="skill-tag">Scanners</span>
-          <span class="skill-tag">Cameras</span>
+          <span class="skill-tag">Vision Systems (Cognex/Keyence)</span>
           <span class="skill-tag">Print &amp; Apply</span>
-          <span class="skill-tag">Cognex Vision</span>
-          <span class="skill-tag">Keyence Vision</span>
-          <span class="skill-tag">Product Tracing</span>
-          <span class="skill-tag">Defect Detection</span>
-          <span class="skill-tag">WCS Integration</span>
+          <span class="skill-tag">FAT / SAT Execution</span>
+          <span class="skill-tag">Commissioning &amp; Handover</span>
+          <span class="skill-tag">RCA / CAPA</span>
         </div>
       </div>
 
@@ -1106,15 +1076,10 @@
           <span class="skill-tag">STEP 7 Safety</span>
           <span class="skill-tag">ISO 13849</span>
           <span class="skill-tag">SIL Rating</span>
-          <span class="skill-tag">SIS</span>
-          <span class="skill-tag">FAT/SAT</span>
-          <span class="skill-tag">IQ/OQ/PQ</span>
-          <span class="skill-tag">GMP</span>
           <span class="skill-tag">Safe Torque Off</span>
           <span class="skill-tag">Light Curtains</span>
           <span class="skill-tag">E-Stops</span>
           <span class="skill-tag">LOTO</span>
-          <span class="skill-tag">OSHA</span>
           <span class="skill-tag">NFPA 79</span>
           <span class="skill-tag">NEC</span>
         </div>
@@ -1130,11 +1095,10 @@
       <div class="section-num"><span>03</span>Engineering Projects</div>
       <h2 class="section-title">Seven projects, <em>full</em> coverage.</h2>
     </div>
-    <p class="section-sub" style="margin-bottom: 40px;">Graduate coursework and industry projects spanning delta robotics, gantry safety, pneumatic conveying, multi-platform motion, and distributed I/O. Each project gets its own deep-dive page &mdash; click any card to read the full writeup.</p>
+    <p class="section-sub" style="margin-bottom: 40px;">Graduate coursework projects and hands-on lab work spanning delta robotics, gantry safety, pneumatic conveying, multi-platform motion, and distributed I/O. Each project has its own deep-dive writeup &mdash; click any card to read the full technical breakdown.</p>
 
     <div class="projects-grid">
 
-      <!-- Delta-Bot -->
       <a class="project delta" href="https://psk-hub.github.io/Delta-Bot/" target="_blank" rel="noopener">
         <div class="project-body">
           <div class="project-tag">Multi-Axis Motion</div>
@@ -1155,13 +1119,12 @@
         </div>
       </a>
 
-      <!-- Gantry -->
       <a class="project gantry" href="https://psk-hub.github.io/Gantry/" target="_blank" rel="noopener">
         <div class="project-body">
           <div class="project-tag">Safety + Motion</div>
           <h3 class="project-name">Gantry <em>SIL</em> Safety System</h3>
           <div class="project-date">Feb 2025 &middot; GuardLogix + TIA Safety</div>
-          <p class="project-desc">Two-axis gantry with SIL-rated safety architecture on both Rockwell (GuardLogix 5370 + Kinetix 350) and Siemens (TIA Portal V19 + STEP 7 Safety) platforms. Dual-channel E-stop, light curtain, Safe Torque Off with 500 ms controlled off-delay. Full ISO 13849 compliance, zero unplanned safety trips during validation.</p>
+          <p class="project-desc">Two-axis gantry with SIL-rated safety architecture on both Rockwell (GuardLogix 5370 + Kinetix 350) and Siemens (TIA Portal V19 + STEP 7 Safety) platforms. Dual-channel E-stop, light curtain, Safe Torque Off with 500 ms controlled off-delay. Full ISO 13849 compliance, zero unplanned safety trips during bench validation.</p>
           <div class="project-tags">
             <span class="ptag">GuardLogix 5370</span>
             <span class="ptag">Kinetix 350</span>
@@ -1176,7 +1139,6 @@
         </div>
       </a>
 
-      <!-- Truck Powder -->
       <a class="project tpow" href="https://psk-hub.github.io/TPow_Unl/" target="_blank" rel="noopener">
         <div class="project-body">
           <div class="project-tag">PackML &middot; HMI</div>
@@ -1197,7 +1159,6 @@
         </div>
       </a>
 
-      <!-- Simple Motion -->
       <a class="project simple" href="https://psk-hub.github.io/Simple-Motion/" target="_blank" rel="noopener">
         <div class="project-body">
           <div class="project-tag">Dual Platform</div>
@@ -1218,7 +1179,6 @@
         </div>
       </a>
 
-      <!-- Beckhoff -->
       <a class="project beckhoff" href="https://psk-hub.github.io/Beckhoff/" target="_blank" rel="noopener">
         <div class="project-body">
           <div class="project-tag">TwinCAT &middot; EtherCAT</div>
@@ -1239,7 +1199,6 @@
         </div>
       </a>
 
-      <!-- Point I/O -->
       <a class="project point" href="https://psk-hub.github.io/Point_IO/" target="_blank" rel="noopener">
         <div class="project-body">
           <div class="project-tag">Distributed I/O</div>
@@ -1260,7 +1219,6 @@
         </div>
       </a>
 
-      <!-- Rotary Knife (no link yet — keep but no anchor target) -->
       <div class="project rotary" style="cursor: default;">
         <div class="project-body">
           <div class="project-tag">Synchronized Cutting</div>
@@ -1290,24 +1248,22 @@
   <div class="container">
     <div class="section-header">
       <div class="section-num"><span>04</span>Experience</div>
-      <h2 class="section-title">4+ years on the <em>plant floor</em>.</h2>
+      <h2 class="section-title">Hands-on <em>on the floor</em>.</h2>
     </div>
 
     <div class="timeline">
       <div class="job">
         <div class="job-meta">
-          <div class="job-period">Feb 2026 &mdash; May 2026</div>
+          <div class="job-period">Feb 2026 &mdash; Present</div>
           <div class="job-company">WinWinLabs</div>
           <div class="job-loc">Plymouth, MI</div>
         </div>
         <div>
-          <h3 class="job-title">Quality Assurance &amp; Validation Controls Systems Analyst</h3>
+          <h3 class="job-title">Quality Assurance &amp; Validation Analyst &mdash; Sensor Systems</h3>
           <ul class="job-bullets">
-            <li>Develop and execute <strong>system-level V&amp;V test plans</strong> for sensor-based electrical systems &mdash; signal accuracy, reliability, and performance against engineering specifications, analogous to building system performance assessments used in MHE environments.</li>
-            <li>Conduct functional, integration, and performance testing of hardware-software systems; verify signal acquisition integrity and sensor response under varied test conditions &mdash; <strong>100% system compliance</strong> across all test cycles.</li>
-            <li>Serve as <strong>first-level escalation support</strong>: diagnose, troubleshoot, and resolve sensor interface faults and electrical anomalies across 3+ concurrent workstreams; document root cause and corrective actions, maintaining zero unresolved failures.</li>
-            <li>Author and maintain test protocols, validation reports, and troubleshooting references &mdash; full traceability aligned with regulatory compliance requirements.</li>
-            <li>Drive cross-functional collaboration with engineering and development teams to validate system specs, electrical interface requirements, and sensor integration criteria.</li>
+            <li>Develop and execute <strong>system-level V&amp;V test plans</strong> for sensor-based electrical hardware &mdash; functional, integration, and performance testing under varied conditions; maintaining 100&nbsp;% test-cycle compliance across active workstreams.</li>
+            <li>Serve as <strong>first-level escalation</strong> on signal acquisition anomalies and electrical interface faults; diagnose, document, and drive corrective action with full RCA traceability &mdash; discipline directly transferable to MHE commissioning troubleshooting.</li>
+            <li>Author structured test protocols, validation reports, and troubleshooting documentation aligned with regulatory compliance requirements; partner with cross-functional engineering, software, and operations teams to validate interface and integration criteria.</li>
           </ul>
         </div>
       </div>
@@ -1321,13 +1277,12 @@
         <div>
           <h3 class="job-title">Automation &amp; Controls Engineer</h3>
           <ul class="job-bullets">
-            <li>Served as <strong>site controls expert for 8+ manufacturing and MHE systems</strong>: developed, debugged, commissioned, and optimized PLC/PC controller software (Studio 5000, TIA Portal). Programmed automatic modes, sequencing, interlocks, startup/shutdown, recovery, and rework routines &mdash; reduced equipment startup time by <strong>15 %</strong>.</li>
-            <li>Reviewed system-integrator coordination and vendor control system design packages across 8+ commissioning projects; resolved 10&ndash;15 logic discrepancies, spec gaps, and I/O conflicts per engagement before FAT.</li>
-            <li>Designed and deployed <strong>SCADA programs</strong> (FactoryTalk View ME/SE, SIMATIC WinCC) with real-time status monitoring, active alarm management, and manual controls; cut floor-level escalation calls by <strong>30 %</strong>.</li>
-            <li>Diagnosed and resolved communication faults across EtherNet/IP, ControlNet, DeviceNet, and Modbus TCP/IP &mdash; traced dropped connections, misconfigured nodes, and timing conflicts; maintained 100 % network uptime.</li>
-            <li>Commissioned conveyors, sortation, robotic cells, scanners, cameras, and <strong>vision systems</strong> (Cognex/Keyence) into PLC-controlled MHE architectures; implemented product tracing and defect detection logic, improving defect identification speed by 20 %.</li>
-            <li>Commissioned servo drives (Kinetix, SINAMICS S120) with autotune and manual loop tuning across multi-axis systems; led PLC retrofit projects replacing legacy relay panels &mdash; deployed 8+ systems with <strong>zero post-commissioning failures</strong>.</li>
-            <li>Leveraged FactoryTalk Historian to surface recurring faults and process drift; drove targeted PLC logic changes and PM schedule improvements to maximize cycle time, availability, and yield.</li>
+            <li>On-site controls engineer on manufacturing and material handling retrofit projects &mdash; developed PLC logic in <strong>Allen-Bradley Studio 5000 and Siemens TIA Portal</strong>, designed FactoryTalk View ME/SE and SIMATIC WinCC HMIs, and executed commissioning from design review through operator handover; zero post-commissioning failures on systems where I owned end-to-end controls scope.</li>
+            <li>Reviewed and validated integrator and vendor controls packages against design specifications &mdash; identified logic discrepancies, I/O conflicts, and specification gaps prior to deployment, contributing to reduced rework during FAT and SAT phases.</li>
+            <li>Diagnosed and resolved <strong>industrial networking faults</strong> across EtherNet/IP, ControlNet, DeviceNet, and Modbus TCP/IP &mdash; traced IP conflicts, fieldbus dropouts, RPI timing mismatches, and node misconfigurations to root cause; documented RCA findings in CAPA log for recurrence prevention.</li>
+            <li>Supported integration and commissioning of conveyor, sortation, and material handling subsystems including vision-system interfaces (Cognex/Keyence) for product tracing and defect detection within PLC-controlled architectures.</li>
+            <li>Commissioned PowerFlex VFDs and servo drives (Kinetix 5300/5500, SINAMICS S120) &mdash; parameter setup, autotune, manual loop tuning, and EtherNet/IP/PROFINET network integration across multi-axis systems.</li>
+            <li>Designed and deployed <strong>operator-facing HMIs</strong> with real-time status, active alarm management, and manual control overrides &mdash; iterated on operator feedback during commissioning to reduce floor-level escalation calls.</li>
           </ul>
         </div>
       </div>
@@ -1341,11 +1296,9 @@
         <div>
           <h3 class="job-title">Process Control Intern</h3>
           <ul class="job-bullets">
-            <li>Monitored MHE metrics; optimized and troubleshot <strong>Siemens S7-1200 TIA Portal ladder logic</strong> for coal handling conveyors &mdash; reduced conveyor downtime by <strong>12 %</strong>.</li>
-            <li>Monitored and verified interlock/permissive logic for process-critical industrial equipment against design documentation &mdash; compliance checks analogous to IQ/OQ/PQ protocols, <strong>100 % ISO compliance</strong> with zero safety incidents.</li>
-            <li>Maintained PROFINET, PROFIBUS, and Modbus TCP/IP communication links between PLCs, SCADA/HMI, and electrical distribution; performed routine fieldbus fault diagnosis preventing unplanned downtime.</li>
-            <li>Provided first-level escalation support for site technicians: implemented controlled PLC logic modifications in TIA Portal (LD and FBD); all changes passed formal review.</li>
-            <li>Contributed to control-loop analysis using RGA and SVD methods in MATLAB and Octave &mdash; evaluated sensor placement and loop pairing.</li>
+            <li>Supported senior controls team on <strong>Siemens S7-1200 PLC logic</strong> for coal handling conveyor systems &mdash; assisted with I/O validation, interlock verification, and PROFINET/Modbus TCP/IP fieldbus diagnostics; all proposed logic changes passed formal review before deployment.</li>
+            <li>Verified interlock and permissive logic for conveyor and material handling systems against design documentation; supported compliance checks contributing to zero safety incidents during the engagement.</li>
+            <li>Updated wiring diagrams, PLC logic notes, and troubleshooting references as field changes were made; participated in <strong>control-loop analysis</strong> using RGA and SVD methods in MATLAB and Octave to evaluate sensor placement and loop pairing.</li>
           </ul>
         </div>
       </div>
@@ -1358,7 +1311,7 @@
   <div class="container">
     <div class="section-header">
       <div class="section-num"><span>05</span>Education</div>
-      <h2 class="section-title">Engineering, <em>cum laude</em>.</h2>
+      <h2 class="section-title">Engineering <em>foundations</em>.</h2>
     </div>
 
     <div class="edu-grid">
@@ -1380,6 +1333,10 @@
       <div class="cert-name">Basic Programmable Logic Controller (PLC) Course</div>
       <div class="cert-meta">Dr. Kelvin Todd Erickson &middot; Missouri University of Science and Technology &middot; Jul 2024</div>
     </div>
+    <div class="cert">
+      <div class="cert-name">Scientific Computing with Python</div>
+      <div class="cert-meta">freeCodeCamp</div>
+    </div>
   </div>
 </section>
 
@@ -1388,9 +1345,9 @@
   <div class="container">
     <div class="section-header">
       <div class="section-num"><span>06</span>Contact</div>
-      <h2 class="section-title">Let's <em>work</em> together.</h2>
+      <h2 class="section-title">Let's <em>build</em> something.</h2>
     </div>
-    <p class="section-sub" style="margin-bottom: 32px;">Open to controls and automation engineering roles, MHE commissioning, and PLC/SCADA integration work. Currently based in Maryville, MO and open to relocation.</p>
+    <p class="section-sub" style="margin-bottom: 32px;">Open to controls and automation engineering roles, MHE commissioning, and PLC/SCADA integration work. Currently based in Maryville, MO and open to relocation and travel.</p>
 
     <div class="contact-grid">
       <a class="contact-method" href="mailto:phanisundarkoka@gmail.com">
@@ -1416,7 +1373,7 @@
 <footer>
   <div class="container">
     <div>&copy; 2026 Phani Sundar Koka &middot; Controls &amp; Automation Engineer</div>
-    <div>Built with <span style="color:var(--primary);">precision</span> &middot; <a href="#hero">Back to top</a></div>
+    <div>Built with <span style="color:var(--primary);">precision</span> &middot; <a href="#">Back to top</a></div>
   </div>
 </footer>
 
